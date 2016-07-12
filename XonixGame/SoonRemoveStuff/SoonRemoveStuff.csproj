@@ -42,10 +42,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Command.cs" />
     <Compile Include="Direction.cs" />
     <Compile Include="GraphicsDeviceExtensions.cs" />
-    <Compile Include="InputHelper.cs" />
+    <Compile Include="IDrawable.cs" />
+    <Compile Include="IMoveable.cs" />
+    <Compile Include="KeyboardInputHelper.cs" />
     <Compile Include="InputKeyPressType.cs" />
+    <Compile Include="IUpdatable.cs" />
     <Compile Include="MouseButton.cs" />
     <Compile Include="Position.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
