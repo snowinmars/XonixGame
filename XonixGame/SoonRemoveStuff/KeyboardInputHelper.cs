@@ -1,9 +1,10 @@
 ﻿using Microsoft.Xna.Framework.Input;
 using System;
+using Microsoft.Xna.Framework;
 
 namespace SoonRemoveStuff
 {
-    public class InputHelper
+    public class KeyboardInputHelper : IUpdatable
     {
         #region Private Fields
 
@@ -16,13 +17,10 @@ namespace SoonRemoveStuff
 
         #region Public Constructors
 
-        public InputHelper(KeyboardState oldKeyboardState, MouseState oldMouseState, KeyboardState keyboardState, MouseState mouseState)
+        public KeyboardInputHelper()
         {
-            this.oldKeyboardState = oldKeyboardState;
-            this.oldMouseState = oldMouseState;
-
-            this.keyboardState = keyboardState;
-            this.mouseState = mouseState;
+            this.keyboardState = Keyboard.GetState();
+            this.mouseState = Mouse.GetState();
 
             this.InputKeyPressType = InputKeyPressType.OnUp;
         }
@@ -75,6 +73,15 @@ namespace SoonRemoveStuff
                 default:
                     throw new ArgumentOutOfRangeException(nameof(button), button, null);
             }
+        }
+
+        public void Update(GameTime gameTime)
+        {
+            this.oldKeyboardState = this.keyboardState;
+            this.oldMouseState = this.mouseState;
+
+            this.keyboardState = Keyboard.GetState();
+            this.mouseState = Mouse.GetState();
         }
 
         #endregion Public Methods
@@ -133,5 +140,7 @@ namespace SoonRemoveStuff
         }
 
         #endregion Private Methods
+
+        
     }
 }
