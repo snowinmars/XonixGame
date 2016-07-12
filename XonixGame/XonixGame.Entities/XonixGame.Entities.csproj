@@ -31,6 +31,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MonoGame.Framework, Version=3.5.1.1679, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -42,7 +43,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Head.cs" />
+    <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="World.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SoonRemoveStuff\SoonRemoveStuff.csproj">
+      <Project>{EDCFC0F6-4CE6-4EC9-98CF-7E543930EB53}</Project>
+      <Name>SoonRemoveStuff</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XonixGame.Configuration\XonixGame.Configuration.csproj">
+      <Project>{EF4C0811-3133-401E-ADD3-BA2AE5B06078}</Project>
+      <Name>XonixGame.Configuration</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
