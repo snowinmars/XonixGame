@@ -6,12 +6,12 @@ namespace XonixGame.Configuration
 {
     public static class Config
     {
-        public static IDictionary<Keys, Comands> KeyComandBinding { get; } = new Dictionary<Keys, Comands>
+        public static IDictionary<Keys, Commands> KeyComandBinding { get; } = new Dictionary<Keys, Commands>
         {
-            {Keys.Up, Comands.MoveUp},
-            {Keys.Down, Comands.MoveDown },
-            {Keys.Left, Comands.MoveLeft },
-            {Keys.Right, Comands.MoveRight},
+            {Keys.Up, Commands.MoveUp},
+            {Keys.Down, Commands.MoveDown },
+            {Keys.Left, Commands.MoveLeft },
+            {Keys.Right, Commands.MoveRight},
         };
 
         /// <summary>

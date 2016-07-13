@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace SoonRemoveStuff
 {
     [Flags]
-    public enum Comands
+    public enum Commands
     {
         Wait = 0,
         MoveUp = 1,

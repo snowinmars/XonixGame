@@ -18,13 +18,13 @@ namespace XonixGame.Entities
         {
             this.Position = position;
             this.Speed = Config.DefaultHeadSpeed;
-            this.ComandActionBinder = new Dictionary<Comands, Comand>
+            this.ComandActionBinder = new Dictionary<Commands, Command>
             {
-                {Comands.MoveUp, new Comand(() => this.Position.Y -= this.Speed.Y)},
-                {Comands.MoveDown, new Comand(() => this.Position.Y += this.Speed.Y)},
-                {Comands.MoveLeft, new Comand(() => this.Position.X -= this.Speed.X)},
-                {Comands.MoveRight, new Comand(() => this.Position.X += this.Speed.X)},
-                {Comands.Wait, new Comand(() => { })},
+                {Commands.MoveUp, new Command(() => this.Position.Y -= this.Speed.Y)},
+                {Commands.MoveDown, new Command(() => this.Position.Y += this.Speed.Y)},
+                {Commands.MoveLeft, new Command(() => this.Position.X -= this.Speed.X)},
+                {Commands.MoveRight, new Command(() => this.Position.X += this.Speed.X)},
+                {Commands.Wait, new Command(() => { })},
             };
         }
 
@@ -32,8 +32,8 @@ namespace XonixGame.Entities
 
         #region Public Properties
 
-        public IDictionary<Comands, Comand> ComandActionBinder { get; }
-        public Comands Comands { get; set; }
+        public IDictionary<Commands, Command> ComandActionBinder { get; }
+        public Commands Comands { get; set; }
         public Position Position { get; set; }
         public Position Speed { get; set; }
         public Texture2D Texture { get; set; }
