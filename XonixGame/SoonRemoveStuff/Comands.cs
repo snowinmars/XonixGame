@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace SoonRemoveStuff
 {
-    public enum Direction
+    [Flags]
+    public enum Comands
     {
-        Up = 0,
-        Right = 1,
-        Down = 2,
-        Left = 3,
+        Wait = 0,
+        MoveUp = 1,
+        MoveDown = 2,
+        MoveLeft = 4,
+        MoveRight = 8,
     }
 }

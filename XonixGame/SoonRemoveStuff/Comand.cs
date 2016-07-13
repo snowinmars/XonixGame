@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace SoonRemoveStuff
 {
-    public class Command
+    public class Comand
     {
-        public Command()
+        public Comand()
         {
             
         }
 
-        public Command(Action action)
+        public Comand(Action action)
         {
             this.Action = action;
         }

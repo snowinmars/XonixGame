@@ -8,6 +8,7 @@ namespace SoonRemoveStuff
 {
     public interface IMoveable
     {
-        void ReadDirection(KeyboardInputHelper keyboardInputHelper);
+        void ReadComands();
+        void Move();
     }
 }

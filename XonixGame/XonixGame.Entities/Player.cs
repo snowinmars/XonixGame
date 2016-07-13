@@ -4,11 +4,12 @@ using System.Linq;
 using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
 using SoonRemoveStuff;
 
 namespace XonixGame.Entities
 {
-    public class Player
+    public class Player : AbstractItem/*, IMoveable, SoonRemoveStuff.IDrawable, IUpdatable*/
     {
         public Player(Head head)
         {

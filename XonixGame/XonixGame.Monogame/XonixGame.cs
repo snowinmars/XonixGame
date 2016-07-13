@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using SoonRemoveStuff;
+using XonixGame.Entities;
 
 namespace XonixGame.Monogame
 {
@@ -13,6 +15,7 @@ namespace XonixGame.Monogame
 
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
+        private Head Head { get; set; } = new Head(100,100);
 
         #endregion Private Fields
 
@@ -38,6 +41,12 @@ namespace XonixGame.Monogame
 
             // Add your drawing code here
 
+            this.spriteBatch.Begin();
+
+            this.Head.Draw(this.spriteBatch);
+
+            this.spriteBatch.End();
+
             base.Draw(gameTime);
         }
 
@@ -62,6 +71,8 @@ namespace XonixGame.Monogame
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            this.Head.Texture = this.GraphicsDevice.Generate(10, 10, Color.Red);
 
             // use this.Content to load your game content here
         }
@@ -89,6 +100,8 @@ namespace XonixGame.Monogame
             }
 
             // Add your update logic here
+
+            this.Head.Update(gameTime);
 
             base.Update(gameTime);
         }

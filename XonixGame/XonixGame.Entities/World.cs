@@ -4,19 +4,8 @@ using SoonRemoveStuff;
 
 namespace XonixGame.Entities
 {
-    public class World : IUpdatable
+    public class World : AbstractItem/*, IMoveable, SoonRemoveStuff.IDrawable, IUpdatable*/
     {
-        private KeyboardInputHelper KeyboardInputHelper { get; }
-
-        public World()
-        {
-            this.KeyboardInputHelper = new KeyboardInputHelper();
-        }
-
-        public void Update(GameTime gameTime)
-        {
-            // update KeyboardInputHelper before anything else
-            this.KeyboardInputHelper.Update(gameTime);
-        }
+       
     }
 }
