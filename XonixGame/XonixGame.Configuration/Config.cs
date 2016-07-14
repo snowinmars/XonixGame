@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Input;
 using SoonRemoveStuff;
 using System.Collections.Generic;
+using Algorithms.Library;
 
 namespace XonixGame.Configuration
 {

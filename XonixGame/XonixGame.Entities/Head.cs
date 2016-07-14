@@ -3,7 +3,9 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SoonRemoveStuff;
 using System.Collections.Generic;
+using Algorithms.Library;
 using XonixGame.Configuration;
+using Color = Microsoft.Xna.Framework.Color;
 
 namespace XonixGame.Entities
 {

@@ -23,8 +23,8 @@ namespace XonixGame.Monogame
 
         public XonixGame()
         {
-            graphics = new GraphicsDeviceManager(this);
-            Content.RootDirectory = "Content";
+            this.graphics = new GraphicsDeviceManager(this);
+            this.Content.RootDirectory = "Content";
         }
 
         #endregion Public Constructors
@@ -37,7 +37,7 @@ namespace XonixGame.Monogame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            this.GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // Add your drawing code here
 
@@ -70,7 +70,7 @@ namespace XonixGame.Monogame
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+            this.spriteBatch = new SpriteBatch(this.GraphicsDevice);
 
             this.Head.Texture = this.GraphicsDevice.Generate(10, 10, Color.Red);
 
@@ -96,7 +96,7 @@ namespace XonixGame.Monogame
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
                 Keyboard.GetState().IsKeyDown(Keys.Escape))
             {
-                Exit();
+                this.Exit();
             }
 
             // Add your update logic here
@@ -106,6 +106,6 @@ namespace XonixGame.Monogame
             base.Update(gameTime);
         }
 
-        #endregion Protected Methods
+#endregion Protected Methods
     }
 }
