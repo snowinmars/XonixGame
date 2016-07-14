@@ -8,11 +8,6 @@ namespace SoonRemoveStuff
 {
     public class Command
     {
-        public Command()
-        {
-            
-        }
-
         public Command(Action action)
         {
             this.Action = action;

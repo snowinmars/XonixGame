@@ -15,7 +15,7 @@ namespace SoonRemoveStuff
             this.AvailableCommands = availableCommands;
         }
 
-        public List<Commands> AvailableCommands { get; private set; }
+        public List<Commands> AvailableCommands { get; }
 
         public Commands State { get; private set; }
 

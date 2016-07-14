@@ -49,8 +49,7 @@ namespace XonixGame.Entities
         public Position Position { get; set; }
         public Position Speed { get; set; }
         public Texture2D Texture { get; set; }
-
-        public StrategySet Strategies { get; private set; }
+        public StrategySet Strategies { get; }
 
         #endregion Public Properties
 

@@ -14,13 +14,14 @@ namespace XonixGame.Entities
             this.Strategies = strategies;
         }
 
-        public IEnumerable<Strategy>  Strategies { get; }
+        public IEnumerable<Strategy> Strategies { get; }
 
         public IEnumerable<Commands> States 
             => this.Strategies.Select(strategy => strategy.State);
 
         public Strategy GetStrategyByCommand(Commands command)
         {
+            // Is Commands.Wait a problem?
             return this.Strategies
                 .FirstOrDefault(strategy => 
                                     strategy.AvailableCommands.Contains(command));
