@@ -12,10 +12,10 @@ namespace SoonRemoveStuff
         public Strategy(Scope scope, List<Commands> availableCommands)
         {
             this.Scope = scope;
-            this.AvailableCommands = availableCommands;
+            this.AvailableStates = availableCommands;
         }
 
-        public List<Commands> AvailableCommands { get; }
+        public List<Commands> AvailableStates { get; }
 
         public Commands State { get; private set; }
 
@@ -35,7 +35,7 @@ namespace SoonRemoveStuff
                 throw new ArgumentException("Strategy can not be in conflict", nameof(command));
             }
 
-            if (!this.AvailableCommands.Contains(command))
+            if (!this.AvailableStates.Contains(command))
             {
                 throw new ArgumentException("Non available command", nameof(command));
             }

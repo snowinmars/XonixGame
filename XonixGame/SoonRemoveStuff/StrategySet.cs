@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SoonRemoveStuff;
 
-namespace XonixGame.Entities
+namespace SoonRemoveStuff
 {
     public class StrategySet
     {
@@ -24,7 +24,7 @@ namespace XonixGame.Entities
             // Is Commands.Wait a problem?
             return this.Strategies
                 .FirstOrDefault(strategy => 
-                                    strategy.AvailableCommands.Contains(command));
+                                    strategy.AvailableStates.Contains(command));
         }
     }
 }
