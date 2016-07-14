@@ -15,7 +15,7 @@ namespace XonixGame.Monogame
 
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
-        private Head Head { get; set; } = new Head(100,100);
+        private Head Head { get; set; } = new Head(100, 100);
 
         #endregion Private Fields
 
@@ -106,6 +106,6 @@ namespace XonixGame.Monogame
             base.Update(gameTime);
         }
 
-#endregion Protected Methods
+        #endregion Protected Methods
     }
 }

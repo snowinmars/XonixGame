@@ -1,7 +1,7 @@
-﻿using Microsoft.Xna.Framework.Input;
-using System;
-using Algorithms.Library;
+﻿using Algorithms.Library;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
+using System;
 
 namespace SoonRemoveStuff
 {
@@ -141,7 +141,5 @@ namespace SoonRemoveStuff
         }
 
         #endregion Private Methods
-
-        
     }
 }

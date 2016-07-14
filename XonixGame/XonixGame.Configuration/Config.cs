@@ -1,7 +1,7 @@
-﻿using Microsoft.Xna.Framework.Input;
+﻿using Algorithms.Library;
+using Microsoft.Xna.Framework.Input;
 using SoonRemoveStuff;
 using System.Collections.Generic;
-using Algorithms.Library;
 
 namespace XonixGame.Configuration
 {
@@ -20,6 +20,7 @@ namespace XonixGame.Configuration
                                                                             {
                                                                                 Commands.Wait,
                                                                             });
+
         public static Strategy HorizontalMovementStrategy { get; } = new Strategy(new Scope(1),
                                                                             new List<Commands>
                                                                             {
@@ -27,6 +28,7 @@ namespace XonixGame.Configuration
                                                                                 Commands.MoveRight,
                                                                                 Commands.Wait,
                                                                             });
+
         public static Strategy VerticalMovementStrategy { get; } = new Strategy(new Scope(2),
                                                                             new List<Commands>
                                                                             {
@@ -38,6 +40,6 @@ namespace XonixGame.Configuration
         /// <summary>
         /// Speed in pixels per tick
         /// </summary>
-        public static Position DefaultHeadSpeed = new Position(1,1); // px
+        public static Position DefaultHeadSpeed = new Position(1, 1); // px
     }
 }

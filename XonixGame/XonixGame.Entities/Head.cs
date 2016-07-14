@@ -1,9 +1,9 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Algorithms.Library;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SoonRemoveStuff;
 using System.Collections.Generic;
-using Algorithms.Library;
 using XonixGame.Configuration;
 using Color = Microsoft.Xna.Framework.Color;
 
