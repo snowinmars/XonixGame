@@ -46,6 +46,7 @@
     <Compile Include="Head.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StrategySet.cs" />
     <Compile Include="World.cs" />
   </ItemGroup>
   <ItemGroup>

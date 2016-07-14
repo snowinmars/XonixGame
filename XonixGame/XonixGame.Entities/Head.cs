@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using SoonRemoveStuff;
 using System.Collections.Generic;
 using XonixGame.Configuration;
@@ -18,7 +19,19 @@ namespace XonixGame.Entities
         {
             this.Position = position;
             this.Speed = Config.DefaultHeadSpeed;
-            this.ComandActionBinder = new Dictionary<Commands, Command>
+
+            Strategy verticalMovementStrategy = Config.VerticalMovementStrategy;
+            Strategy horizontalMovementStrategy = Config.HorizontalMovementStrategy;
+            Strategy commonStrategy = Config.HeadCommonStrategy;
+
+            this.Strategies = new StrategySet(new List<Strategy>
+            {
+                verticalMovementStrategy,
+                horizontalMovementStrategy,
+                commonStrategy,
+            });
+
+            this.CommandsActionBinder = new Dictionary<Commands, Command>
             {
                 {Commands.MoveUp, new Command(() => this.Position.Y -= this.Speed.Y)},
                 {Commands.MoveDown, new Command(() => this.Position.Y += this.Speed.Y)},
@@ -32,11 +45,12 @@ namespace XonixGame.Entities
 
         #region Public Properties
 
-        public IDictionary<Commands, Command> ComandActionBinder { get; }
-        public Commands Comands { get; set; }
+        public IDictionary<Commands, Command> CommandsActionBinder { get; }
         public Position Position { get; set; }
         public Position Speed { get; set; }
         public Texture2D Texture { get; set; }
+
+        public StrategySet Strategies { get; private set; }
 
         #endregion Public Properties
 
@@ -49,22 +63,24 @@ namespace XonixGame.Entities
 
         public void Move()
         {
-            foreach (var comandActionPair in this.ComandActionBinder)
+            foreach (var state in this.Strategies.States)
             {
-                if (this.Comands.HasFlag(comandActionPair.Key))
-                {
-                    comandActionPair.Value.Exec();
-                }
+                this.CommandsActionBinder[state].Exec();
             }
         }
 
         public void ReadComands()
         {
-            foreach (var keyComandPair in Config.KeyComandBinding)
+            foreach (var keyCommandPair in Config.KeyCommandBinding)
             {
-                if (this.KeyboardInputHelper.WasKeyPressed(keyComandPair.Key))
+                Keys key = keyCommandPair.Key;
+                Commands command = keyCommandPair.Value;
+
+                if (this.KeyboardInputHelper.WasKeyPressed(key))
                 {
-                    this.Comands |= keyComandPair.Value;
+                    Strategy stratagy = this.Strategies.GetStrategyByCommand(command);
+
+                    stratagy.ApplyCommand(command);
                 }
             }
         }
