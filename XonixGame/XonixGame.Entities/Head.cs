@@ -1,11 +1,12 @@
-﻿using Algorithms.Library;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SoonRemoveStuff;
 using System.Collections.Generic;
+using Algorithms.Library;
 using XonixGame.Configuration;
 using Color = Microsoft.Xna.Framework.Color;
+using Strategy = SoonRemoveStuff.Strategy;
 
 namespace XonixGame.Entities
 {
@@ -22,36 +23,29 @@ namespace XonixGame.Entities
             this.Position = position;
             this.Speed = Config.DefaultHeadSpeed;
 
-            Strategy verticalMovementStrategy = Config.VerticalMovementStrategy;
-            Strategy horizontalMovementStrategy = Config.HorizontalMovementStrategy;
-            Strategy commonStrategy = Config.HeadCommonStrategy;
+            StateSet verticalMovementStrategy = Config.VerticalMovementStrategy;
+            StateSet horizontalMovementStrategy = Config.HorizontalMovementStrategy;
+            StateSet commonStrategy = Config.HeadCommonStrategy;
 
-            this.Strategies = new StrategySet(new List<Strategy>
+            this.Strategy = new Strategy(new List<StateSet>
             {
                 verticalMovementStrategy,
                 horizontalMovementStrategy,
                 commonStrategy,
             });
 
-            this.CommandsActionBinder = new Dictionary<Commands, Command>
-            {
-                {Commands.MoveUp, new Command(() => this.Position.Y -= this.Speed.Y)},
-                {Commands.MoveDown, new Command(() => this.Position.Y += this.Speed.Y)},
-                {Commands.MoveLeft, new Command(() => this.Position.X -= this.Speed.X)},
-                {Commands.MoveRight, new Command(() => this.Position.X += this.Speed.X)},
-                {Commands.Wait, new Command(() => { })},
-            };
+            this.HeadFlyweight = HeadFlyweight.Instance;
         }
 
         #endregion Public Constructors
 
         #region Public Properties
 
-        public IDictionary<Commands, Command> CommandsActionBinder { get; }
+        public HeadFlyweight HeadFlyweight { get; }
         public Position Position { get; set; }
         public Position Speed { get; set; }
         public Texture2D Texture { get; set; }
-        public StrategySet Strategies { get; }
+        public Strategy Strategy { get; }
 
         #endregion Public Properties
 
@@ -64,9 +58,9 @@ namespace XonixGame.Entities
 
         public void Move()
         {
-            foreach (var state in this.Strategies.States)
+            foreach (var state in this.Strategy.GetStates())
             {
-                this.CommandsActionBinder[state].Exec();
+                this.HeadFlyweight.CommandsActionBinder[state].Invoke(this);
             }
         }
 
@@ -79,7 +73,7 @@ namespace XonixGame.Entities
 
                 if (this.KeyboardInputHelper.WasKeyPressed(key))
                 {
-                    Strategy stratagy = this.Strategies.GetStrategyByCommand(command);
+                    StateSet stratagy = this.Strategy.GetStrategyByCommand(command);
 
                     stratagy.ApplyCommand(command);
                 }

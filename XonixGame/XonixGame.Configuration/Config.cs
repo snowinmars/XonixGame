@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Input;
 using SoonRemoveStuff;
 using System.Collections.Generic;
+using Scope = SoonRemoveStuff.Scope;
 
 namespace XonixGame.Configuration
 {
@@ -15,13 +16,13 @@ namespace XonixGame.Configuration
             {Keys.Right, Commands.MoveRight},
         };
 
-        public static Strategy HeadCommonStrategy { get; } = new Strategy(new Scope(0),
+        public static StateSet HeadCommonStrategy { get; } = new StateSet(new Scope(0),
                                                                             new List<Commands>
                                                                             {
                                                                                 Commands.Wait,
                                                                             });
 
-        public static Strategy HorizontalMovementStrategy { get; } = new Strategy(new Scope(1),
+        public static StateSet HorizontalMovementStrategy { get; } = new StateSet(new Scope(1),
                                                                             new List<Commands>
                                                                             {
                                                                                 Commands.MoveLeft,
@@ -29,7 +30,7 @@ namespace XonixGame.Configuration
                                                                                 Commands.Wait,
                                                                             });
 
-        public static Strategy VerticalMovementStrategy { get; } = new Strategy(new Scope(2),
+        public static StateSet VerticalMovementStrategy { get; } = new StateSet(new Scope(2),
                                                                             new List<Commands>
                                                                             {
                                                                                 Commands.MoveUp,
