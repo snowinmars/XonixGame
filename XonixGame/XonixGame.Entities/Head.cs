@@ -1,17 +1,14 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Algorithms.Library;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SoonRemoveStuff;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Algorithms.Library;
 using XonixGame.Configuration;
 using Color = Microsoft.Xna.Framework.Color;
-using Strategy = SoonRemoveStuff.Strategy;
 
 namespace XonixGame.Entities
 {
-    public class Head : AbstractItem, IMoveable, SoonRemoveStuff.IDrawable, IUpdatable
+    public class Head : AbstractItem, SoonRemoveStuff.IDrawable, IUpdatable
     {
         #region Public Constructors
 
@@ -32,10 +29,10 @@ namespace XonixGame.Entities
 
         #region Public Properties
 
-        public HeadFlyweight HeadFlyweight { get; }
-        public Position Position { get; set; }
         public Texture2D Texture { get; set; }
-        public Position ActualSpeed { get; set; }
+        private Position ActualSpeed { get; set; }
+        private HeadFlyweight HeadFlyweight { get; }
+        private Position Position { get; set; }
 
         #endregion Public Properties
 
@@ -46,13 +43,25 @@ namespace XonixGame.Entities
             spriteBatch.Draw(this.Texture, this.Position.ToVector2(), Color.Red);
         }
 
-        public void Move()
+        public override void Update(GameTime gameTime)
         {
-            this.Position.X += this.ActualSpeed.X;
-            this.Position.Y += this.ActualSpeed.Y;
+            this.ReadInput();
+            this.SpeedCut();
+            this.Move();
+
+            base.Update(gameTime);
         }
 
-        public void ReadInput()
+        #endregion Public Methods
+
+        #region Private Methods
+
+        private void Move()
+        {
+            this.Position += this.ActualSpeed;
+        }
+
+        private void ReadInput()
         {
             foreach (var keyCommandPair in Config.KeyCommandBinding)
             {
@@ -64,7 +73,10 @@ namespace XonixGame.Entities
                     this.ActualSpeed += this.HeadFlyweight.CommandDirectionBinder[command];
                 }
             }
+        }
 
+        private void SpeedCut()
+        {
             if (this.ActualSpeed.X > Config.MaxSpeedX)
             {
                 this.ActualSpeed.X = Config.MaxSpeedX;
@@ -76,14 +88,6 @@ namespace XonixGame.Entities
             }
         }
 
-        public override void Update(GameTime gameTime)
-        {
-            this.ReadInput();
-            this.Move();
-
-            base.Update(gameTime);
-        }
-
-        #endregion Public Methods
+        #endregion Private Methods
     }
 }

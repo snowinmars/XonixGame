@@ -61,7 +61,6 @@
     <Compile Include="GenericCommand.cs" />
     <Compile Include="GraphicsDeviceExtensions.cs" />
     <Compile Include="IDrawable.cs" />
-    <Compile Include="IMoveable.cs" />
     <Compile Include="KeyboardInputHelper.cs" />
     <Compile Include="IUpdatable.cs" />
     <Compile Include="Position.cs" />
