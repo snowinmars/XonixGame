@@ -1,44 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using Algorithms.Library;
+using Microsoft.Xna.Framework;
 using SoonRemoveStuff;
-using Scope = SoonRemoveStuff.Scope;
 
 namespace XonixGame.Entities
 {
     public class HeadFlyweight
     {
+        #region Singleton
+
         protected HeadFlyweight()
         {
-            this.CommandsActionBinder = new Dictionary<Commands, Action<Head>>
+            var wait = new Position(0,0);
+            var up = new Position(0, -1);
+            var down = new Position(0, 1);
+            var left = new Position(-1, 0);
+            var right = new Position(1, 0);
+
+
+            this.CommandDirectionBinder = new Dictionary<Commands, Position>
             {
-                {Commands.MoveUp, (head) =>
-                {
-                    head.Position.Y -= head.Speed.Y;
-                }},
-                {Commands.MoveDown, (head) =>
-                {
-                    head.Position.Y += head.Speed.Y;
-                }},
-                {Commands.MoveLeft, (head) =>
-                {
-                    head.Position.X -= head.Speed.X;
-                }},
-                {Commands.MoveRight, (head) =>
-                {
-                    head.Position.X += head.Speed.X;
-                }},
-                {Commands.Wait, (head) => { }},
+                {Commands.Wait, wait},
+                {Commands.MoveDown, down },
+                {Commands.MoveUp, up },
+                {Commands.MoveLeft, left },
+                {Commands.MoveRight, right},
             };
+
         }
 
         public static HeadFlyweight Instance => SingletonCreator<HeadFlyweight>.CreatorInstance;
-
-        public IDictionary<Commands, Action<Head>> CommandsActionBinder { get; }
 
         private sealed class SingletonCreator<S>
             where S : class
@@ -48,5 +41,9 @@ namespace XonixGame.Entities
                                                                                     new Type[0],
                                                                                     new ParameterModifier[0]).Invoke(null);
         }
+
+        #endregion Singleton
+
+        public IDictionary<Commands, Position> CommandDirectionBinder { get; set; }
     }
 }

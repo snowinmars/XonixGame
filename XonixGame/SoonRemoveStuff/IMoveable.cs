@@ -2,7 +2,7 @@
 {
     public interface IMoveable
     {
-        void ReadComands();
+        void ReadInput();
 
         void Move();
     }

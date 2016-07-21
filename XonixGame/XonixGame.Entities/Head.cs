@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SoonRemoveStuff;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Algorithms.Library;
 using XonixGame.Configuration;
 using Color = Microsoft.Xna.Framework.Color;
@@ -21,20 +22,10 @@ namespace XonixGame.Entities
         public Head(Position position)
         {
             this.Position = position;
-            this.Speed = Config.DefaultHeadSpeed;
-
-            StateSet verticalMovementStrategy = Config.VerticalMovementStrategy;
-            StateSet horizontalMovementStrategy = Config.HorizontalMovementStrategy;
-            StateSet commonStrategy = Config.HeadCommonStrategy;
-
-            this.Strategy = new Strategy(new List<StateSet>
-            {
-                verticalMovementStrategy,
-                horizontalMovementStrategy,
-                commonStrategy,
-            });
 
             this.HeadFlyweight = HeadFlyweight.Instance;
+
+            this.ActualSpeed = new Position();
         }
 
         #endregion Public Constructors
@@ -43,9 +34,8 @@ namespace XonixGame.Entities
 
         public HeadFlyweight HeadFlyweight { get; }
         public Position Position { get; set; }
-        public Position Speed { get; set; }
         public Texture2D Texture { get; set; }
-        public Strategy Strategy { get; }
+        public Position ActualSpeed { get; set; }
 
         #endregion Public Properties
 
@@ -58,13 +48,11 @@ namespace XonixGame.Entities
 
         public void Move()
         {
-            foreach (var state in this.Strategy.GetStates())
-            {
-                this.HeadFlyweight.CommandsActionBinder[state].Invoke(this);
-            }
+            this.Position.X += this.ActualSpeed.X;
+            this.Position.Y += this.ActualSpeed.Y;
         }
 
-        public void ReadComands()
+        public void ReadInput()
         {
             foreach (var keyCommandPair in Config.KeyCommandBinding)
             {
@@ -73,16 +61,24 @@ namespace XonixGame.Entities
 
                 if (this.KeyboardInputHelper.WasKeyPressed(key))
                 {
-                    StateSet stratagy = this.Strategy.GetStrategyByCommand(command);
-
-                    stratagy.ApplyCommand(command);
+                    this.ActualSpeed += this.HeadFlyweight.CommandDirectionBinder[command];
                 }
+            }
+
+            if (this.ActualSpeed.X > Config.MaxSpeedX)
+            {
+                this.ActualSpeed.X = Config.MaxSpeedX;
+            }
+
+            if (this.ActualSpeed.Y > Config.MaxSpeedY)
+            {
+                this.ActualSpeed.Y = Config.MaxSpeedY;
             }
         }
 
         public override void Update(GameTime gameTime)
         {
-            this.ReadComands();
+            this.ReadInput();
             this.Move();
 
             base.Update(gameTime);

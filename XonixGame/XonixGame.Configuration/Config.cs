@@ -38,6 +38,10 @@ namespace XonixGame.Configuration
                                                                                 Commands.Wait,
                                                                             });
 
+        public static int MaxSpeedX { get; set; } = 3;
+        public static int MaxSpeedY { get; set; } = 3;
+
+
         /// <summary>
         /// Speed in pixels per tick
         /// </summary>

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
+using System.CodeDom;
 
 namespace SoonRemoveStuff
 {
@@ -17,17 +18,11 @@ namespace SoonRemoveStuff
             this.Y = y;
         }
 
-        public Position(double x, double y)
-        {
-            this.X = (int)x;
-            this.Y = (int)y;
-        }
-
         public Position(Point p) : this(p.X, p.Y)
         {
         }
 
-        public Position(Vector2 v) : this(v.X, v.Y)
+        public Position(Vector2 v) : this((int)v.X, (int)v.Y)
         {
         }
 
@@ -92,7 +87,7 @@ namespace SoonRemoveStuff
                 return -1;
             }
 
-            if (this.X == pos.X &&
+            if (this.X == pos.Y &&
                 this.Y == pos.Y)
             {
                 return 0;
@@ -127,5 +122,15 @@ namespace SoonRemoveStuff
         }
 
         #endregion Equals
+
+        public static Position operator +(Position lhs, Position rhs)
+        {
+            return new Position(lhs.X + rhs.X, lhs.Y + rhs.Y);
+        }
+
+        public static Position operator -(Position lhs, Position rhs)
+        {
+            return new Position(lhs.X - rhs.X, lhs.Y - rhs.Y);
+        }
     }
 }
