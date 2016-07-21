@@ -38,8 +38,8 @@ namespace XonixGame.Configuration
                                                                                 Commands.Wait,
                                                                             });
 
-        public static int MaxSpeedX { get; set; } = 3;
-        public static int MaxSpeedY { get; set; } = 3;
+        public static int MaxSpeedX { get; set; } = 1;
+        public static int MaxSpeedY { get; set; } = 1;
 
 
         /// <summary>

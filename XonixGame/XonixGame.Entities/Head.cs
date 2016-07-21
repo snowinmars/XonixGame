@@ -1,4 +1,5 @@
-﻿using Algorithms.Library;
+﻿using System;
+using Algorithms.Library;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -77,14 +78,14 @@ namespace XonixGame.Entities
 
         private void SpeedCut()
         {
-            if (this.ActualSpeed.X > Config.MaxSpeedX)
+            if (Math.Abs(this.ActualSpeed.X) > Config.MaxSpeedX)
             {
-                this.ActualSpeed.X = Config.MaxSpeedX;
+                this.ActualSpeed.X = Math.Sign(this.ActualSpeed.X) * Config.MaxSpeedX;
             }
 
-            if (this.ActualSpeed.Y > Config.MaxSpeedY)
+            if ((Math.Abs(this.ActualSpeed.Y)) > Config.MaxSpeedY)
             {
-                this.ActualSpeed.Y = Config.MaxSpeedY;
+                this.ActualSpeed.Y = Math.Sign(this.ActualSpeed.Y) * Config.MaxSpeedY;
             }
         }
 
