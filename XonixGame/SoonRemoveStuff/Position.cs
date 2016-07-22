@@ -87,13 +87,7 @@ namespace SoonRemoveStuff
                 return -1;
             }
 
-            if (this.X == pos.Y &&
-                this.Y == pos.Y)
-            {
-                return 0;
-            }
-
-            return -1;
+            return this.X.CompareTo(pos.X) + this.Y.CompareTo(pos.Y);
         }
 
         public override bool Equals(object obj)
@@ -131,6 +125,20 @@ namespace SoonRemoveStuff
         public static Position operator -(Position lhs, Position rhs)
         {
             return new Position(lhs.X - rhs.X, lhs.Y - rhs.Y);
+        }
+
+        public static bool operator > (Position lhs, Position rhs)
+            => Math.Abs(lhs.X) > Math.Abs(rhs.X) &&
+                    Math.Abs(lhs.Y) > Math.Abs(rhs.Y);
+
+        public static bool operator <(Position lhs, Position rhs)
+            => Math.Abs(lhs.X) < Math.Abs(rhs.X) &&
+                    Math.Abs(lhs.Y) < Math.Abs(rhs.Y);
+
+        public void SetZero()
+        {
+            this.X = 0;
+            this.Y = 0;
         }
     }
 }
