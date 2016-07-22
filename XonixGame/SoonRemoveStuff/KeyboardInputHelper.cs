@@ -141,5 +141,10 @@ namespace SoonRemoveStuff
         }
 
         #endregion Private Methods
+
+        public bool IsKeyPressed(Keys key)
+        {
+            return this.keyboardState.IsKeyDown(key);
+        }
     }
 }
