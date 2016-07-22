@@ -1,14 +1,20 @@
-﻿using System;
-using Algorithms.Library;
+﻿using Algorithms.Library;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SoonRemoveStuff;
+using System;
 using XonixGame.Configuration;
 using Color = Microsoft.Xna.Framework.Color;
 
 namespace XonixGame.Entities
 {
+    public enum MovementType
+    {
+        JustPress = 0,
+        PressAndHold = 1,
+    }
+
     public class Head : AbstractItem, SoonRemoveStuff.IDrawable, IUpdatable
     {
         #region Public Constructors
@@ -24,16 +30,21 @@ namespace XonixGame.Entities
             this.HeadFlyweight = HeadFlyweight.Instance;
 
             this.ActualSpeed = new Position();
+
+            this.KeyboardInputHelper.InputKeyPressType = InputKeyPressType.OnDown;
+            this.MovementType = MovementType.PressAndHold;
         }
 
         #endregion Public Constructors
 
         #region Public Properties
 
+        public MovementType MovementType { get; set; }
         public Texture2D Texture { get; set; }
         private Position ActualSpeed { get; set; }
         private HeadFlyweight HeadFlyweight { get; }
-        private Position Position { get; set; }
+        public Position Position { get; set; }
+        public Rectangle Rectangle => new Rectangle(this.Position.X, this.Position.Y, 10, 10);
 
         #endregion Public Properties
 
@@ -64,15 +75,36 @@ namespace XonixGame.Entities
 
         private void ReadInput()
         {
+            bool wasKeyPressed = false;
+
             foreach (var keyCommandPair in Config.KeyCommandBinding)
             {
                 Keys key = keyCommandPair.Key;
                 Commands command = keyCommandPair.Value;
 
-                if (this.KeyboardInputHelper.WasKeyPressed(key))
+                switch (this.MovementType)
                 {
-                    this.ActualSpeed += this.HeadFlyweight.CommandDirectionBinder[command];
+                    case MovementType.JustPress:
+                        if (this.KeyboardInputHelper.WasKeyPressed(key))
+                        {
+                            this.ActualSpeed += this.HeadFlyweight.CommandDirectionBinder[command];
+                        }
+                        break;
+                    case MovementType.PressAndHold:
+                        if (this.KeyboardInputHelper.IsKeyPressed(key))
+                        {
+                            this.ActualSpeed += this.HeadFlyweight.CommandDirectionBinder[command];
+                            wasKeyPressed = true;
+                        }
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
                 }
+            }
+
+            if (!wasKeyPressed)
+            {
+                this.ActualSpeed.SetZero();
             }
         }
 
@@ -80,12 +112,12 @@ namespace XonixGame.Entities
         {
             if (Math.Abs(this.ActualSpeed.X) > Config.MaxSpeedX)
             {
-                this.ActualSpeed.X = Math.Sign(this.ActualSpeed.X) * Config.MaxSpeedX;
+                this.ActualSpeed.X = Math.Sign(this.ActualSpeed.X)*Config.MaxSpeedX;
             }
 
             if ((Math.Abs(this.ActualSpeed.Y)) > Config.MaxSpeedY)
             {
-                this.ActualSpeed.Y = Math.Sign(this.ActualSpeed.Y) * Config.MaxSpeedY;
+                this.ActualSpeed.Y = Math.Sign(this.ActualSpeed.Y)*Config.MaxSpeedY;
             }
         }
 

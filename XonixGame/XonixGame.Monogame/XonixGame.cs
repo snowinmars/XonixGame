@@ -15,7 +15,7 @@ namespace XonixGame.Monogame
 
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
-        private Head Head { get; set; } = new Head(100, 100);
+        private World world;
 
         #endregion Private Fields
 
@@ -25,6 +25,9 @@ namespace XonixGame.Monogame
         {
             this.graphics = new GraphicsDeviceManager(this);
             this.Content.RootDirectory = "Content";
+            var head = new Head(100, 100);
+            var player = new Player(head);
+            this.world = new World(player);
         }
 
         #endregion Public Constructors
@@ -43,7 +46,7 @@ namespace XonixGame.Monogame
 
             this.spriteBatch.Begin();
 
-            this.Head.Draw(this.spriteBatch);
+            this.world.Draw(this.spriteBatch);
 
             this.spriteBatch.End();
 
@@ -72,7 +75,7 @@ namespace XonixGame.Monogame
             // Create a new SpriteBatch, which can be used to draw textures.
             this.spriteBatch = new SpriteBatch(this.GraphicsDevice);
 
-            this.Head.Texture = this.GraphicsDevice.Generate(10, 10, Color.Red);
+            this.world.Player.Head.Texture = this.GraphicsDevice.Generate(10, 10, Color.Red);
 
             // use this.Content to load your game content here
         }
@@ -101,7 +104,7 @@ namespace XonixGame.Monogame
 
             // Add your update logic here
 
-            this.Head.Update(gameTime);
+            this.world.Update(gameTime);
 
             base.Update(gameTime);
         }

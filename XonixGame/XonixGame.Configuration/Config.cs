@@ -40,6 +40,7 @@ namespace XonixGame.Configuration
 
         public static int MaxSpeedX { get; set; } = 1;
         public static int MaxSpeedY { get; set; } = 1;
+        public static Position PositionEpsilon { get; set; } = new Position(4,4);
 
 
         /// <summary>

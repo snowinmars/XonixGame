@@ -1,8 +1,11 @@
-﻿using SoonRemoveStuff;
+﻿using System;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using SoonRemoveStuff;
 
 namespace XonixGame.Entities
 {
-    public class Player : AbstractItem/*, IMoveable, SoonRemoveStuff.IDrawable, IUpdatable*/
+    public class Player : SoonRemoveStuff.IDrawable, IUpdatable
     {
         public Player(Head head)
         {
@@ -11,6 +14,14 @@ namespace XonixGame.Entities
 
         public Head Head { get; set; }
 
-        public Position Position { get; set; }
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            this.Head.Draw(spriteBatch);
+        }
+
+        public void Update(GameTime gameTime)
+        {
+            this.Head.Update(gameTime);
+        }
     }
 }
