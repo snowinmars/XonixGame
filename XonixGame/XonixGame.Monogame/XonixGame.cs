@@ -17,6 +17,7 @@ namespace XonixGame.Monogame
         private SpriteBatch spriteBatch;
         private World world;
         private ITextureStorage textureStorage;
+        private GameContentManager gameContentManager;
         #endregion Private Fields
 
         #region Public Constructors
@@ -62,10 +63,12 @@ namespace XonixGame.Monogame
             // Add your initialization logic here
 
             this.textureStorage = new TextureStorage();
+            GameContentManager.Init(this.Content, this.GraphicsDevice);
+
             var head = new Head(100, 100);
             var player = new Player(head);
             this.world = new GameWorld(player, textureStorage);
-
+            
             base.Initialize();
         }
 

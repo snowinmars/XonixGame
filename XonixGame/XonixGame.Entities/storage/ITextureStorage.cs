@@ -7,12 +7,6 @@ using System.Threading.Tasks;
 
 namespace XonixGame.Entities
 {
-    public enum TextureType
-    {
-        Empty = 0,
-        Head = 1,S
-    }
-
     public interface ITextureStorage
     {
         Texture2D Get(TextureType textureType);

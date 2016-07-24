@@ -24,7 +24,8 @@ namespace XonixGame.Entities
 
         public void Init(GraphicsDevice graphicsDevice)
         {
-            this.binding.Add(TextureType.Head, graphicsDevice.Generate(10, 10, Color.Red));
+            this.binding.Add(TextureType.Empty, GameContentManager.Instance.Load(TextureType.Empty));
+            this.binding.Add(TextureType.Head, GameContentManager.Instance.Load(TextureType.Head));
         }
 
         private IDictionary<TextureType, Texture2D> binding { get; }
