@@ -27,7 +27,7 @@ namespace XonixGame.Monogame
             this.Content.RootDirectory = "Content";
             var head = new Head(100, 100);
             var player = new Player(head);
-            this.world = new World(player);
+            this.world = new GameWorld(player);
         }
 
         #endregion Public Constructors
@@ -75,7 +75,7 @@ namespace XonixGame.Monogame
             // Create a new SpriteBatch, which can be used to draw textures.
             this.spriteBatch = new SpriteBatch(this.GraphicsDevice);
 
-            this.world.Player.Head.Texture = this.GraphicsDevice.Generate(10, 10, Color.Red);
+            this.player.Head.Texture = this.GraphicsDevice.Generate(10, 10, Color.Red);
 
             // use this.Content to load your game content here
         }
