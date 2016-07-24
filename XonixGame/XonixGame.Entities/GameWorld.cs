@@ -9,7 +9,7 @@ namespace XonixGame.Entities
 {
     public class GameWorld : World, SoonRemoveStuff.IDrawable, IUpdatable
     {
-        public GameWorld(Player player)
+        public GameWorld(Player player, ITextureStorage textureStorage) : base(textureStorage)
         {
             this.Player = player;
             this.playerPositions = new List<Position>(128);
@@ -58,6 +58,11 @@ namespace XonixGame.Entities
         private bool CheckIsBorderCollise()
         {
             return !this.Rectangle.Contains(this.Player.Head.Rectangle);
+        }
+
+        public override void Init(GraphicsDevice graphicsDevice)
+        {
+            this.Player.Head.Texture = this.textureStorage.Get(TextureType.Head);
         }
     }
 }
