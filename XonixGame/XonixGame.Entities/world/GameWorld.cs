@@ -9,7 +9,7 @@ namespace XonixGame.Entities
 {
     public class GameWorld : World, SoonRemoveStuff.IDrawable, IUpdatable
     {
-        public GameWorld(Player player, ITextureStorage textureStorage) : base(textureStorage)
+        public GameWorld(Player player, ITextureStorage textureStorage, IFontStorage fontStorage) : base(textureStorage, fontStorage)
         {
             this.Player = player;
             this.playerPositions = new List<Position>(128);
