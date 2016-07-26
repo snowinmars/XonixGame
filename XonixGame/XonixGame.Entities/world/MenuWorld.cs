@@ -1,6 +1,7 @@
 ﻿using Algorithms.Library.Menu;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SoonRemoveStuff;
 
 namespace XonixGame.Entities
 {
@@ -14,6 +15,9 @@ namespace XonixGame.Entities
 
             XnaMenuNode start = new XnaMenuNode("Start");
             XnaMenuNode end = new XnaMenuNode("End");
+
+            start.Position = new Position(50, 0);
+            end.Position = new Position(50, 20);
 
             this.menu.Connect(head, start);
             this.menu.Connect(head, end);
@@ -33,8 +37,6 @@ namespace XonixGame.Entities
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            int y = 0;
-
             foreach (var node in this.menu.Nodes)
             {
                 if (node.Text == "Head")
@@ -42,8 +44,10 @@ namespace XonixGame.Entities
                     continue;
                 }
 
-                spriteBatch.DrawString(GameContentManager.Instance.Load(FontType.Defult), node.Text, new Vector2(0, y), Color.Black);
-                y += 20;
+                spriteBatch.DrawString(GameContentManager.Instance.Load(FontType.Defult),
+                                        node.Text, 
+                                        new Vector2(node.Position.X, node.Position.Y), 
+                                        Color.Black);
             }
         }
 
