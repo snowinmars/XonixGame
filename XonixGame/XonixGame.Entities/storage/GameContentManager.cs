@@ -37,7 +37,7 @@ namespace XonixGame.Entities
             switch (fontType)
             {
             case FontType.Defult:
-                return contentManager.Load<SpriteFont>("Arial");
+                return contentManager.Load<SpriteFont>("fonts/PTSans14");
             default:
                 throw new ArgumentException();
             }

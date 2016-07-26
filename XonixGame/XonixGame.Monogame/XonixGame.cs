@@ -16,8 +16,6 @@ namespace XonixGame.Monogame
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
         private World world;
-        private ITextureStorage textureStorage;
-        private IFontStorage fontStorage;
         private GameContentManager gameContentManager;
         #endregion Private Fields
 
@@ -63,13 +61,11 @@ namespace XonixGame.Monogame
         {
             // Add your initialization logic here
 
-            this.textureStorage = new TextureStorage();
-            this.fontStorage = new FontStorage();
             GameContentManager.Init(this.Content, this.GraphicsDevice);
 
             var head = new Head(100, 100);
             var player = new Player(head);
-            this.world = new MenuWorld(textureStorage, fontStorage);
+            this.world = new MenuWorld();
             
             base.Initialize();
         }
@@ -83,7 +79,7 @@ namespace XonixGame.Monogame
             // Create a new SpriteBatch, which can be used to draw textures.
             this.spriteBatch = new SpriteBatch(this.GraphicsDevice);
 
-            this.textureStorage.Init(this.GraphicsDevice);
+            TextureStorage.Init(this.GraphicsDevice);
 
             this.world.Init(this.GraphicsDevice);
 

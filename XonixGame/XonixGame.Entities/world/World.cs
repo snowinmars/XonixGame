@@ -5,10 +5,8 @@ namespace XonixGame.Entities
 {
     public abstract class World
     {
-        protected World(ITextureStorage textureStorage, IFontStorage fontStorage)
+        protected World()
         {
-            this.textureStorage = textureStorage;
-            this.fontStorage = fontStorage;
         }
 
         public abstract Rectangle Rectangle { get; }
@@ -18,9 +16,5 @@ namespace XonixGame.Entities
         public abstract void Update(GameTime gameTime);
 
         public abstract void Init(GraphicsDevice graphicsDevice);
-
-        protected ITextureStorage textureStorage;
-
-        protected IFontStorage fontStorage;
     }
 }

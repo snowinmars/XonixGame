@@ -9,7 +9,7 @@ namespace XonixGame.Entities
 {
     public class GameWorld : World, SoonRemoveStuff.IDrawable, IUpdatable
     {
-        public GameWorld(Player player, ITextureStorage textureStorage, IFontStorage fontStorage) : base(textureStorage, fontStorage)
+        public GameWorld(Player player) : base()
         {
             this.Player = player;
             this.playerPositions = new List<Position>(128);
@@ -62,7 +62,7 @@ namespace XonixGame.Entities
 
         public override void Init(GraphicsDevice graphicsDevice)
         {
-            this.Player.Head.Texture = this.textureStorage.Get(TextureType.Head);
+            this.Player.Head.Texture = TextureStorage.Get(TextureType.Head);
         }
     }
 }

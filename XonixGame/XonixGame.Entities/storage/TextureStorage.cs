@@ -9,25 +9,30 @@ using Microsoft.Xna.Framework;
 
 namespace XonixGame.Entities
 {
-    public class TextureStorage : ITextureStorage
+    public static class TextureStorage 
     {
 
-        public TextureStorage()
+        static TextureStorage()
         {
-            this.binding = new Dictionary<TextureType, Texture2D>();
+            binding = new Dictionary<TextureType, Texture2D>();
         }
 
-        public Texture2D Get(TextureType textureType)
+        public static Texture2D Get(TextureType textureType)
         {
-            return this.binding[textureType];
+            return binding[textureType];
         }
 
-        public void Init(GraphicsDevice graphicsDevice)
+        public static void Set(TextureType textureType, Texture2D texture)
         {
-            this.binding.Add(TextureType.Empty, GameContentManager.Instance.Load(TextureType.Empty));
-            this.binding.Add(TextureType.Head, GameContentManager.Instance.Load(TextureType.Head));
+            binding.Add(textureType, texture);
         }
 
-        private IDictionary<TextureType, Texture2D> binding { get; }
+        public static void Init(GraphicsDevice graphicsDevice)
+        {
+            binding.Add(TextureType.Empty, GameContentManager.Instance.Load(TextureType.Empty));
+            binding.Add(TextureType.Head, GameContentManager.Instance.Load(TextureType.Head));
+        }
+
+        private static IDictionary<TextureType, Texture2D> binding { get; }
     }
 }

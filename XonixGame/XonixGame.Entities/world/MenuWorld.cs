@@ -1,25 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Algorithms.Library.Menu;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Algorithms.Library.Menu;
 
 namespace XonixGame.Entities
 {
     public class MenuWorld : World
     {
-        public MenuWorld(ITextureStorage textureStorage, IFontStorage fontStorage) : base(textureStorage, fontStorage)
+        public MenuWorld() : base()
         {
-            this.menu = new Menu();
+            this.menu = new Menu<XnaMenuNode>();
 
-            MenuNode start = new MenuNode("Start");
-            MenuNode end = new MenuNode("End");
+            XnaMenuNode head = new XnaMenuNode("Head");
 
-            this.menu.Head.Connect(start);
-            this.menu.Head.Connect(end);
+            XnaMenuNode start = new XnaMenuNode("Start");
+            XnaMenuNode end = new XnaMenuNode("End");
+
+            this.menu.Connect(head, start);
+            this.menu.Connect(head, end);
+
+            this.menu.AddNode(head);
         }
 
         public override Rectangle Rectangle
@@ -30,11 +29,22 @@ namespace XonixGame.Entities
             }
         }
 
-        private Menu menu;
+        private Menu<XnaMenuNode> menu;
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-             spriteBatch.DrawString(GameContentManager.Instance.Load(FontType.Defult), ((MenuNode)this.menu.Head).Text, new Vector2 (10,10),Color.Black);
+            int y = 0;
+
+            foreach (var node in this.menu.Nodes)
+            {
+                if (node.Text == "Head")
+                {
+                    continue;
+                }
+
+                spriteBatch.DrawString(GameContentManager.Instance.Load(FontType.Defult), node.Text, new Vector2(0, y), Color.Black);
+                y += 20;
+            }
         }
 
         public override void Init(GraphicsDevice graphicsDevice)

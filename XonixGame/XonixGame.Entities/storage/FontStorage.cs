@@ -7,24 +7,28 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace XonixGame.Entities
 {
-    public class FontStorage : IFontStorage
+    public static class FontStorage
     {
+        private static  IDictionary<FontType, SpriteFont> binding { get; }
 
-        private IDictionary<FontType, SpriteFont> binding { get; }
-
-        public FontStorage()
+        static FontStorage()
         {
-            this.binding = new Dictionary<FontType, SpriteFont>();
+            binding = new Dictionary<FontType, SpriteFont>();
         }
 
-        public SpriteFont Get(FontType fontType)
+        public static SpriteFont Get(FontType fontType)
         {
-            return this.binding[fontType];
+            return binding[fontType];
         }
 
-        public void Init()
+        public static void Set(FontType fontType, SpriteFont spriteFont)
         {
-            this.binding.Add(FontType.Defult, GameContentManager.Instance.Load(FontType.Defult));
+            binding.Add(fontType, spriteFont);
+        }
+
+        public static void Init()
+        {
+            binding.Add(FontType.Defult, GameContentManager.Instance.Load(FontType.Defult));
         }
     }
 }
