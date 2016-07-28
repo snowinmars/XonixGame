@@ -22,7 +22,8 @@ namespace XonixGame.Entities
             this.Position = position;
         }
 
-        public XnaMenuNode(string text, IEnumerable<GraphNode> connections = null, Color color = Color.White) : base(text, connections, color)
+        public XnaMenuNode(string text, IEnumerable<GraphNode> connections = null, Color color = Color.White)
+            : base(text, connections, color)
         {
         }
 
@@ -35,6 +36,11 @@ namespace XonixGame.Entities
                 Point textSize = FontStorage.Get(FontType.Defult).MeasureString(this.Text).ToPoint();
                 return new Rectangle(this.Position.X, this.Position.Y, textSize.X, textSize.Y);
             }
+        }
+
+        public void Click()
+        {
+            XnaMenu<XnaMenuNode>.drawingNode = this;
         }
     }
 }

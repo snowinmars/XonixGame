@@ -65,7 +65,7 @@ namespace XonixGame.Monogame
 
             var head = new Head(100, 100);
             var player = new Player(head);
-            this.world = new MenuWorld();
+            this.world = new GameWorld(player);
             
             base.Initialize();
         }

@@ -9,7 +9,7 @@ namespace XonixGame.Entities
     {
         public MenuWorld() : base()
         {
-            this.menu = new Menu<XnaMenuNode>();
+            this.menu = new XnaMenu<XnaMenuNode>();
 
             XnaMenuNode head = new XnaMenuNode("Head");
 
@@ -33,7 +33,7 @@ namespace XonixGame.Entities
             }
         }
 
-        private Menu<XnaMenuNode> menu;
+        private XnaMenu<XnaMenuNode> menu;
 
         public override void Draw(SpriteBatch spriteBatch)
         {
