@@ -37,11 +37,11 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Algorithms.Library, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SandS.Algorithms.Library.1.0.9\lib\Algorithms.Library.dll</HintPath>
+      <HintPath>..\packages\SandS.Algorithms.Library.1.0.10\lib\Algorithms.Library.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\SandS.Algorithms.Library.1.0.9\lib\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll</HintPath>
+      <HintPath>..\packages\SandS.Algorithms.Library.1.0.10\lib\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="MonoGame.Framework, Version=3.5.1.1679, Culture=neutral, processorArchitecture=MSIL" />

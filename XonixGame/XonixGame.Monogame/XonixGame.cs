@@ -65,8 +65,8 @@ namespace XonixGame.Monogame
 
             var head = new Head(100, 100);
             var player = new Player(head);
-            this.world = new GameWorld(player);
-            
+            this.world = new MenuWorld();
+            this.world.Initialize();
             base.Initialize();
         }
 
@@ -81,7 +81,7 @@ namespace XonixGame.Monogame
 
             TextureStorage.Init(this.GraphicsDevice);
 
-            this.world.Init(this.GraphicsDevice);
+            this.world.LoadContent(this.GraphicsDevice);
 
             // use this.Content to load your game content here
         }

@@ -1,20 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Algorithms.Library;
+﻿using Algorithms.Library;
 using Algorithms.Library.Menu;
 using Microsoft.Xna.Framework;
-using SoonRemoveStuff;
+using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 
 namespace XonixGame.Entities
 {
-    public class XnaMenu<T>  : Menu<T>
+    public class XnaMenu<T> : Menu<T>
         where T : XnaMenuNode
     {
         internal static XnaMenuNode drawingNode;
-        
+
         public XnaMenu() : this(new Graph<T>())
         {
         }
@@ -25,6 +21,22 @@ namespace XonixGame.Entities
 
         protected internal XnaMenu(Graph<T> graph) : base(graph)
         {
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            if (XnaMenu<T>.drawingNode == null)
+            {
+                return;
+            }
+
+            foreach (var node in XnaMenu<T>.drawingNode.Children)
+            {
+                spriteBatch.DrawString(GameContentManager.Instance.Load(FontType.Defult),
+                    node.Text,
+                    new Vector2(node.Position.X, node.Position.Y),
+                    Microsoft.Xna.Framework.Color.Black);
+            }
         }
     }
 }

@@ -60,9 +60,14 @@ namespace XonixGame.Entities
             return !this.Rectangle.Contains(this.Player.Head.Rectangle);
         }
 
-        public override void Init(GraphicsDevice graphicsDevice)
+        public override void LoadContent(GraphicsDevice graphicsDevice)
         {
             this.Player.Head.Texture = TextureStorage.Get(TextureType.Head);
+        }
+
+        public override void Initialize()
+        {
+            
         }
     }
 }

@@ -23,6 +23,8 @@ namespace XonixGame.Entities
             this.menu.Connect(head, end);
 
             this.menu.AddNode(head);
+
+            XnaMenu<XnaMenuNode>.drawingNode = head;
         }
 
         public override Rectangle Rectangle
@@ -37,21 +39,14 @@ namespace XonixGame.Entities
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            foreach (var node in this.menu.Nodes)
-            {
-                if (node.Text == "Head")
-                {
-                    continue;
-                }
-
-                spriteBatch.DrawString(GameContentManager.Instance.Load(FontType.Defult),
-                                        node.Text, 
-                                        new Vector2(node.Position.X, node.Position.Y), 
-                                        Color.Black);
-            }
+            this.menu.Draw(spriteBatch);
         }
 
-        public override void Init(GraphicsDevice graphicsDevice)
+        public override void LoadContent(GraphicsDevice graphicsDevice)
+        {
+        }
+
+        public override void Initialize()
         {
         }
 

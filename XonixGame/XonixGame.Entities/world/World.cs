@@ -14,7 +14,10 @@ namespace XonixGame.Entities
         public abstract void Draw(SpriteBatch spriteBatch);
 
         public abstract void Update(GameTime gameTime);
+        
+        public abstract void LoadContent(GraphicsDevice graphicsDevice);
 
-        public abstract void Init(GraphicsDevice graphicsDevice);
+        public abstract void Initialize();
+
     }
 }

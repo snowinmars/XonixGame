@@ -38,6 +38,8 @@ namespace XonixGame.Entities
             }
         }
 
+        public new IList<XnaMenuNode> Children { get; }
+
         public void Click()
         {
             XnaMenu<XnaMenuNode>.drawingNode = this;
