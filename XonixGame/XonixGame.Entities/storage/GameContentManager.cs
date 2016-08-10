@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Graphics;
 using SoonRemoveStuff;
 using Microsoft.Xna.Framework;
+using SandS.Algorithm.Library.StorageNamespace;
 
 namespace XonixGame.Entities
 {
@@ -36,7 +37,7 @@ namespace XonixGame.Entities
         {
             switch (fontType)
             {
-            case FontType.Defult:
+            case FontType.Default:
                 return contentManager.Load<SpriteFont>("fonts/PTSans14");
             default:
                 throw new ArgumentException();
@@ -47,9 +48,7 @@ namespace XonixGame.Entities
         {
             switch (textureType)
             {
-            case TextureType.Empty:
-                return graphicsDevice.Generate(10, 10, Color.Red);
-            case TextureType.Head:
+            case TextureType.Default:
                 return graphicsDevice.Generate(10, 10, Color.Red);
             default:
                 throw new ArgumentException();

@@ -32,21 +32,73 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Algorithms.Extensions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SandS.Algorithms.Extensions.1.0.2\lib\Algorithms.Extensions.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Algorithms.Library, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SandS.Algorithms.Library.1.0.10\lib\Algorithms.Library.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\SandS.Algorithms.Library.1.0.10\lib\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="MonoGame.Framework, Version=3.5.1.1679, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SandS.Algorithm.Extensions.DateTimeExtension, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SandS.Algorithm.Extensions.DateTimeExtension.2.0.0\lib\SandS.Algorithm.Extensions.DateTimeExtension.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SandS.Algorithm.Extensions.EnumerableExtension, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SandS.Algorithm.Extensions.EnumerableExtensions.2.0.0\lib\SandS.Algorithm.Extensions.EnumerableExtension.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SandS.Algorithm.Extensions.GraphicsDeviceExtension, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SandS.Algorithm.Extensions.GraphicsDeviceExtension.2.0.1\lib\SandS.Algorithm.Extensions.GraphicsDeviceExtension.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SandS.Algorithm.Extensions.IComparableExtension, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SandS.Algorithm.Extensions.IComparableExtension.2.0.0\lib\SandS.Algorithm.Extensions.IComparableExtension.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SandS.Algorithm.Extensions.IListExtension, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SandS.Algorithm.Extensions.IListExtension.2.0.0\lib\SandS.Algorithm.Extensions.IListExtension.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SandS.Algorithm.Extensions.StringBuilderExtension, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SandS.Algorithm.Extensions.StringBuilderExtension.2.0.0\lib\SandS.Algorithm.Extensions.StringBuilderExtension.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SandS.Algorithm.Extensions.StringExtension, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SandS.Algorithm.Extensions.StringExtension.2.0.0\lib\SandS.Algorithm.Extensions.StringExtension.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SandS.Algorithm.Library.Bitwise, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SandS.Algorithm.Library.Bitwise.2.0.0\lib\SandS.Algorithm.Library.Bitwise.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SandS.Algorithm.Library.FastObjectAllocator, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SandS.Algorithm.Library.FastObjectAllocator.2.0.0\lib\SandS.Algorithm.Library.FastObjectAllocator.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SandS.Algorithm.Library.Generator, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SandS.Algorithm.Library.Generator.2.0.1.01\lib\SandS.Algorithm.Library.Generator.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SandS.Algorithm.Library.Graph, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SandS.Algorithm.Library.Graph.2.0.1\lib\SandS.Algorithm.Library.Graph.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SandS.Algorithm.Library.Menu, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SandS.Algorithm.Library.Menu.2.0.1\lib\SandS.Algorithm.Library.Menu.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SandS.Algorithm.Library.Other, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SandS.Algorithm.Library.Other.2.0.1\lib\SandS.Algorithm.Library.Other.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SandS.Algorithm.Library.Search, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SandS.Algorithm.Library.Search.2.0.1.01\lib\SandS.Algorithm.Library.Search.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SandS.Algorithm.Library.Sort, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SandS.Algorithm.Library.Sort.2.0.1.01\lib\SandS.Algorithm.Library.Sort.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SandS.Algorithm.Library.Storage, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SandS.Algorithm.Library.Storage.2.0.1.01\lib\SandS.Algorithm.Library.Storage.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -62,20 +114,12 @@
     <Compile Include="AbstractItem.cs" />
     <Compile Include="Head.cs" />
     <Compile Include="HeadFlyweight.cs" />
-    <Compile Include="storage\FontStorage.cs" />
-    <Compile Include="storage\FontType.cs" />
     <Compile Include="storage\GameContentManager.cs" />
-    <Compile Include="storage\IFontStorage.cs" />
-    <Compile Include="storage\ITextureStorage.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="storage\TextureType.cs" />
     <Compile Include="world\GameWorld.cs" />
-    <Compile Include="storage\TextureStorage.cs" />
     <Compile Include="world\MenuWorld.cs" />
     <Compile Include="world\World.cs" />
-    <Compile Include="world\XnaMenu.cs" />
-    <Compile Include="world\XnaMenuNode.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SoonRemoveStuff\SoonRemoveStuff.csproj">

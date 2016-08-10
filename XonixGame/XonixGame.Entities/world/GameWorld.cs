@@ -3,11 +3,14 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SoonRemoveStuff;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework.Content;
+using SandS.Algorithm.Library.PositionNamespace;
+using SandS.Algorithm.Library.StorageNamespace;
 using XonixGame.Configuration;
 
 namespace XonixGame.Entities
 {
-    public class GameWorld : World, SoonRemoveStuff.IDrawable, IUpdatable
+    public class GameWorld : World
     {
         public GameWorld(Player player) : base()
         {
@@ -28,7 +31,7 @@ namespace XonixGame.Entities
 
         public Player Player { get; private set; }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             this.Player.Draw(spriteBatch);
         }
@@ -47,7 +50,13 @@ namespace XonixGame.Entities
             }
             else
             {
-                if (this.PreviousPosition - this.Player.Head.Position > Config.PositionEpsilon)
+                //if (this.PreviousPosition - this.Player.Head.Position > Config.PositionEpsilon)
+                Position p = new Position();
+                p.X = this.PreviousPosition.X - this.Player.Head.Position.X;
+                p.Y = this.PreviousPosition.Y - this.Player.Head.Position.Y;
+
+                if (p.X > Config.PositionEpsilon.X ||
+                    p.Y > Config.PositionEpsilon.Y)
                 {
                     this.playerPositions.Add(this.Player.Head.Position);
                     this.PreviousPosition = this.Player.Head.Position;
@@ -60,9 +69,9 @@ namespace XonixGame.Entities
             return !this.Rectangle.Contains(this.Player.Head.Rectangle);
         }
 
-        public override void LoadContent(GraphicsDevice graphicsDevice)
+        public override void LoadContent(ContentManager contentManager, GraphicsDevice graphicsDevice)
         {
-            this.Player.Head.Texture = TextureStorage.Get(TextureType.Head);
+            this.Player.Head.Texture = TextureStorage.Instance.Get(TextureType.Default);
         }
 
         public override void Initialize()

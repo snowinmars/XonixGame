@@ -1,11 +1,13 @@
-﻿using Algorithms.Library;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SoonRemoveStuff;
 using System;
+using SandS.Algorithm.Library.EnumsNamespace;
+using SandS.Algorithm.Library.PositionNamespace;
 using XonixGame.Configuration;
 using Color = Microsoft.Xna.Framework.Color;
+using Commands = SoonRemoveStuff.Commands;
 
 namespace XonixGame.Entities
 {
@@ -70,7 +72,9 @@ namespace XonixGame.Entities
 
         private void Move()
         {
-            this.Position += this.ActualSpeed;
+            //this.Position += this.ActualSpeed;
+            this.Position.X += this.ActualSpeed.X;
+            this.Position.Y += this.ActualSpeed.Y;
         }
 
         private void ReadInput()
@@ -87,13 +91,17 @@ namespace XonixGame.Entities
                     case MovementType.JustPress:
                         if (this.KeyboardInputHelper.WasKeyPressed(key))
                         {
-                            this.ActualSpeed += this.HeadFlyweight.CommandDirectionBinder[command];
+                            //this.ActualSpeed += this.HeadFlyweight.CommandDirectionBinder[command];
+                            this.ActualSpeed.X += this.HeadFlyweight.CommandDirectionBinder[command].X;
+                            this.ActualSpeed.Y += this.HeadFlyweight.CommandDirectionBinder[command].Y;
                         }
                         break;
                     case MovementType.PressAndHold:
-                        if (this.KeyboardInputHelper.IsKeyPressed(key))
+                        if (this.KeyboardInputHelper.WasKeyPressed(key))
                         {
-                            this.ActualSpeed += this.HeadFlyweight.CommandDirectionBinder[command];
+                            //this.ActualSpeed += this.HeadFlyweight.CommandDirectionBinder[command];
+                            this.ActualSpeed.X += this.HeadFlyweight.CommandDirectionBinder[command].X;
+                            this.ActualSpeed.Y += this.HeadFlyweight.CommandDirectionBinder[command].Y;
                             wasKeyPressed = true;
                         }
                         break;
@@ -104,7 +112,9 @@ namespace XonixGame.Entities
 
             if (!wasKeyPressed)
             {
-                this.ActualSpeed.SetZero();
+                //this.ActualSpeed.SetZero();
+                this.ActualSpeed.X = 0;
+                this.ActualSpeed.Y = 0;
             }
         }
 

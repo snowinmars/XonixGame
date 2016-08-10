@@ -1,7 +1,7 @@
-﻿using Algorithms.Library;
-using Microsoft.Xna.Framework.Input;
+﻿using Microsoft.Xna.Framework.Input;
 using SoonRemoveStuff;
 using System.Collections.Generic;
+using SandS.Algorithm.Library.PositionNamespace;
 using Scope = SoonRemoveStuff.Scope;
 
 namespace XonixGame.Configuration

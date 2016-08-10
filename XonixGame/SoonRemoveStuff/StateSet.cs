@@ -1,9 +1,9 @@
 ﻿using System;
+using SandS.Algorithm.Library.Bitwise;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Algorithms.Library;
 
 namespace SoonRemoveStuff
 {
@@ -39,7 +39,7 @@ namespace SoonRemoveStuff
 
         public void ApplyCommand(Commands command)
         {
-            if (!Bitwise.IsPowerOfTwo((ulong)command))
+            if (!BitwiseOperation.IsPowerOfTwo((ulong)command))
             {
                 throw new ArgumentException("Strategy can not be in conflict", nameof(command));
             }

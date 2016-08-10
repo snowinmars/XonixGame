@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using SoonRemoveStuff;
+using SandS.Algorithm.Library.OtherNamespace;
+using IUpdatable = SoonRemoveStuff.IUpdatable;
 
 namespace XonixGame.Entities
 {

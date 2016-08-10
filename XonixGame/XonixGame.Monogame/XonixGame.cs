@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using SandS.Algorithm.Library.StorageNamespace;
 using SoonRemoveStuff;
 using XonixGame.Entities;
 
@@ -44,7 +45,7 @@ namespace XonixGame.Monogame
 
             this.spriteBatch.Begin();
 
-            this.world.Draw(this.spriteBatch);
+            this.world.Draw(gameTime, this.spriteBatch);
 
             this.spriteBatch.End();
 
@@ -62,6 +63,8 @@ namespace XonixGame.Monogame
             // Add your initialization logic here
 
             GameContentManager.Init(this.Content, this.GraphicsDevice);
+            FontStorage.Instance.Initialize(this.Content);
+            TextureStorage.Instance.Initialize(this.Content, this.GraphicsDevice);
 
             var head = new Head(100, 100);
             var player = new Player(head);
@@ -79,9 +82,7 @@ namespace XonixGame.Monogame
             // Create a new SpriteBatch, which can be used to draw textures.
             this.spriteBatch = new SpriteBatch(this.GraphicsDevice);
 
-            TextureStorage.Init(this.GraphicsDevice);
-
-            this.world.LoadContent(this.GraphicsDevice);
+            this.world.LoadContent(this.Content, this.GraphicsDevice);
 
             // use this.Content to load your game content here
         }
