@@ -72,9 +72,7 @@ namespace XonixGame.Entities
 
         private void Move()
         {
-            //this.Position += this.ActualSpeed;
-            this.Position.X += this.ActualSpeed.X;
-            this.Position.Y += this.ActualSpeed.Y;
+            this.Position += this.ActualSpeed;
         }
 
         private void ReadInput()
@@ -91,17 +89,13 @@ namespace XonixGame.Entities
                     case MovementType.JustPress:
                         if (this.KeyboardInputHelper.WasKeyPressed(key))
                         {
-                            //this.ActualSpeed += this.HeadFlyweight.CommandDirectionBinder[command];
-                            this.ActualSpeed.X += this.HeadFlyweight.CommandDirectionBinder[command].X;
-                            this.ActualSpeed.Y += this.HeadFlyweight.CommandDirectionBinder[command].Y;
+                            this.ActualSpeed += this.HeadFlyweight.CommandDirectionBinder[command];
                         }
                         break;
                     case MovementType.PressAndHold:
                         if (this.KeyboardInputHelper.WasKeyPressed(key))
                         {
-                            //this.ActualSpeed += this.HeadFlyweight.CommandDirectionBinder[command];
-                            this.ActualSpeed.X += this.HeadFlyweight.CommandDirectionBinder[command].X;
-                            this.ActualSpeed.Y += this.HeadFlyweight.CommandDirectionBinder[command].Y;
+                            this.ActualSpeed += this.HeadFlyweight.CommandDirectionBinder[command];
                             wasKeyPressed = true;
                         }
                         break;
@@ -112,9 +106,7 @@ namespace XonixGame.Entities
 
             if (!wasKeyPressed)
             {
-                //this.ActualSpeed.SetZero();
-                this.ActualSpeed.X = 0;
-                this.ActualSpeed.Y = 0;
+                this.ActualSpeed.SetZero();
             }
         }
 

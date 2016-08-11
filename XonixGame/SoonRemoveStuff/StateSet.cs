@@ -1,9 +1,9 @@
 ﻿using System;
-using SandS.Algorithm.Library.Bitwise;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SandS.Algorithm.Library.BitwiseNamespace;
 
 namespace SoonRemoveStuff
 {

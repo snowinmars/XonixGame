@@ -17,7 +17,6 @@ namespace XonixGame.Monogame
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
         private World world;
-        private GameContentManager gameContentManager;
         #endregion Private Fields
 
         #region Public Constructors
@@ -62,9 +61,8 @@ namespace XonixGame.Monogame
         {
             // Add your initialization logic here
 
-            GameContentManager.Init(this.Content, this.GraphicsDevice);
-            FontStorage.Instance.Initialize(this.Content);
             TextureStorage.Instance.Initialize(this.Content, this.GraphicsDevice);
+            FontStorage.Instance.Initialize(this.Content);
 
             var head = new Head(100, 100);
             var player = new Player(head);
