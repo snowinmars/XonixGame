@@ -35,13 +35,21 @@ namespace XonixGame.ContentMemoryStorageNamespace
             this.textureStorage = new Dictionary<TextureType, Texture2D>
             {
                 {
-                    TextureType.Player, graphicsDevice.Generate(10, 10, new Color(CommonValues.Random.Next(),
-                                                                                    CommonValues.Random.Next(),
-                                                                                    CommonValues.Random.Next(),
-                                                                                    CommonValues.Random.Next()))
+                    TextureType.Player,
+                    graphicsDevice.Generate(Config.PlayerSize.X,
+                                            Config.PlayerSize.Y,
+                                            new Color(CommonValues.Random.Next(),
+                                                        CommonValues.Random.Next(),
+                                                        CommonValues.Random.Next(),
+                                                        CommonValues.Random.Next()))
                 },
                 {
-                    TextureType.World, graphicsDevice.Generate(Config.WorldSize.X, Config.WorldSize.Y, Color.Aqua, 2, Color.Black)
+                    TextureType.World,
+                    graphicsDevice.Generate(Config.WorldSize.X,
+                                            Config.WorldSize.Y,
+                                            Color.Aqua,
+                                            borderThick: 2,
+                                            borderColor: Color.Black)
                 },
             };
         }

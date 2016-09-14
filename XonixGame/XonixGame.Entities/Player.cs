@@ -38,7 +38,7 @@ namespace XonixGame.Entities
         private Position ActualSpeed { get; set; }
         private HeadFlyweight HeadFlyweight { get; }
         public Position Position { get; set; }
-        public Rectangle Rectangle => new Rectangle(this.Position.X, this.Position.Y, 10, 10);
+        public Rectangle Rectangle => new Rectangle(this.Position.X, this.Position.Y, Config.PlayerSize.X, Config.PlayerSize.Y);
 
         #endregion Public Properties
 

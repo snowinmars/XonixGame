@@ -14,7 +14,7 @@ namespace XonixGame.Entities
         public GameWorld(Player player, Position size) : base()
         {
             this.Player = player;
-            this.playerPositions = new List<Position>(128);
+            this.PlayerPositions = new List<Position>(128);
             this.PreviousPosition = this.Player.Position;
 
             this.Rectangle = new Rectangle(Point.Zero, size.ToPoint());
@@ -22,7 +22,7 @@ namespace XonixGame.Entities
 
         public override Rectangle Rectangle { get; }
        
-        private IList<Position> playerPositions { get; }
+        private IList<Position> PlayerPositions { get; }
 
         public Player Player { get; private set; }
 
@@ -40,11 +40,26 @@ namespace XonixGame.Entities
         {
             this.Player.Update(gameTime);
 
-            bool isborderCollise = this.CheckIsBorderCollise();
+            bool isborderCollise = this.CheckBorderCollise();
 
             if (isborderCollise)
             {
-                throw new ArgumentOutOfRangeException();
+                if (this.Player.Position.X <= 0)
+                {
+                    this.Player.Position.X = 0;
+                }
+                if (this.Player.Position.X >= Config.WorldSize.X - Config.PlayerSize.X)
+                {
+                    this.Player.Position.X = Config.WorldSize.X - Config.PlayerSize.X;
+                }
+                if (this.Player.Position.Y <= 0)
+                {
+                    this.Player.Position.Y = 0;
+                }
+                if (this.Player.Position.Y >= Config.WorldSize.Y - Config.PlayerSize.Y)
+                {
+                    this.Player.Position.Y = Config.WorldSize.Y - Config.PlayerSize.Y;
+                }
             }
 
             this.HandlePosition();
@@ -54,14 +69,19 @@ namespace XonixGame.Entities
         {
             if (this.PreviousPosition - this.Player.Position > Config.PositionEpsilon)
             {
-                this.playerPositions.Add(this.Player.Position);
+                this.PlayerPositions.Add(this.Player.Position);
                 this.PreviousPosition = this.Player.Position;
             }
         }
 
-        private bool CheckIsBorderCollise()
+        private bool CheckBorderCollise()
         {
-            return !this.Rectangle.Contains(this.Player.Rectangle);
+            bool contains = this.Rectangle.Top < this.Player.Rectangle.Top &&
+                            this.Rectangle.Right > this.Player.Rectangle.Right &&
+                            this.Rectangle.Bottom > this.Player.Rectangle.Bottom &&
+                            this.Rectangle.Left < this.Player.Rectangle.Left;
+
+            return !contains;
         }
 
         public override void LoadContent(ContentManager contentManager, GraphicsDevice graphicsDevice)
