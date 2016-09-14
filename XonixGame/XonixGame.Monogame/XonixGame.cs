@@ -63,8 +63,7 @@ namespace XonixGame.Monogame
             TextureStorage.Instance.Initialize(this.Content, this.GraphicsDevice);
             FontStorage.Instance.Initialize(this.Content);
 
-            var head = new Head(100, 100);
-            var player = new Player(head);
+            var player = new Player(100,100);
             this.world = new GameWorld(player);
             this.world.Initialize();
             base.Initialize();

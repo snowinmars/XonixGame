@@ -15,7 +15,7 @@ namespace XonixGame.Entities
         {
             this.Player = player;
             this.playerPositions = new List<Position>(128);
-            this.PreviousPosition = this.Player.Head.Position;
+            this.PreviousPosition = this.Player.Position;
         }
 
         public override Rectangle Rectangle
@@ -49,28 +49,28 @@ namespace XonixGame.Entities
             }
             else
             {
-                //if (this.PreviousPosition - this.Player.Head.Position > Config.PositionEpsilon)
+                //if (this.PreviousPosition - this.Player.Position > Config.PositionEpsilon)
                 Position p = new Position();
-                p.X = this.PreviousPosition.X - this.Player.Head.Position.X;
-                p.Y = this.PreviousPosition.Y - this.Player.Head.Position.Y;
+                p.X = this.PreviousPosition.X - this.Player.Position.X;
+                p.Y = this.PreviousPosition.Y - this.Player.Position.Y;
 
                 if (p.X > Config.PositionEpsilon.X ||
                     p.Y > Config.PositionEpsilon.Y)
                 {
-                    this.playerPositions.Add(this.Player.Head.Position);
-                    this.PreviousPosition = this.Player.Head.Position;
+                    this.playerPositions.Add(this.Player.Position);
+                    this.PreviousPosition = this.Player.Position;
                 }
             }
         }
 
         private bool CheckIsBorderCollise()
         {
-            return !this.Rectangle.Contains(this.Player.Head.Rectangle);
+            return !this.Rectangle.Contains(this.Player.Rectangle);
         }
 
         public override void LoadContent(ContentManager contentManager, GraphicsDevice graphicsDevice)
         {
-            this.Player.Head.Texture = TextureStorage.Instance.Get(TextureType.Default);
+            this.Player.Texture = TextureStorage.Instance.Get(TextureType.Default);
         }
 
         public override void Initialize()
