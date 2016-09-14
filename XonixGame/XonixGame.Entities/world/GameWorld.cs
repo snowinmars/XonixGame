@@ -4,6 +4,8 @@ using Microsoft.Xna.Framework.Graphics;
 using SandS.Algorithm.Library.PositionNamespace;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using SandS.Algorithm.CommonNamespace;
 using SandS.Algorithm.Extensions.IComparableExtensionNamespace;
 using XonixGame.Configuration;
 using XonixGame.ContentMemoryStorageNamespace;
@@ -50,16 +52,54 @@ namespace XonixGame.Entities
 
             if (isborderCollise)
             {
-                this.Player.Position.X = this.Player.Position.X.CantBeLess(0);
-                this.Player.Position.X = this.Player.Position.X.CantBeMore(Config.WorldSize.X - Config.PlayerSize.X);
-                this.Player.Position.Y = this.Player.Position.Y.CantBeLess(0);
-                this.Player.Position.Y = this.Player.Position.Y.CantBeMore(Config.WorldSize.Y - Config.PlayerSize.Y);
+                this.CutPlayerPosition();
+                this.FinalizePlayerLine();
             }
 
             this.HandlePosition();
         }
 
-        
+        private void FinalizePlayerLine()
+        {
+            for (int i = 0; i < Config.AreaAccuracyCalculation; i++)
+            {
+                int x = CommonValues.Random.Next(this.Rectangle.Left, this.Rectangle.Right);
+                int y = CommonValues.Random.Next(this.Rectangle.Top, this.Rectangle.Bottom);
+                Position randomDot = new Position(x,y);
+
+                int intersectionCount = GetintersectionCount(randomDot);
+            }
+        }
+
+        private int GetintersectionCount(Position dot)
+        {
+            int count = 0;
+
+            for (int i = 1, j = 0; i < this.PlayerPositions.Count; i++, j++)
+            {
+                if (((this.PlayerPositions[i].Y <= dot.Y && dot.Y < this.PlayerPositions[j].Y) ||
+                     (this.PlayerPositions[j].Y <= dot.Y && dot.Y < this.PlayerPositions[i].Y)) &&
+                    (dot.X >
+                     (this.PlayerPositions[j].X - this.PlayerPositions[i].X)*(dot.Y - this.PlayerPositions[i].Y)/
+                     (this.PlayerPositions[j].Y - this.PlayerPositions[i].Y) + this.PlayerPositions[i].X))
+                {
+                    // intersect
+                }
+
+               
+            }
+
+            return count;
+        }
+
+        private void CutPlayerPosition()
+        {
+            this.Player.Position.X = this.Player.Position.X.CantBeLess(0);
+            this.Player.Position.X = this.Player.Position.X.CantBeMore(Config.WorldSize.X - Config.PlayerSize.X);
+            this.Player.Position.Y = this.Player.Position.Y.CantBeLess(0);
+            this.Player.Position.Y = this.Player.Position.Y.CantBeMore(Config.WorldSize.Y - Config.PlayerSize.Y);
+        }
+
         private void HandlePosition()
         {
             if (this.PreviousPosition - this.Player.Position > Config.PositionEpsilon)
@@ -71,12 +111,7 @@ namespace XonixGame.Entities
 
         private bool CheckBorderCollise()
         {
-            bool contains = this.Rectangle.Top < this.Player.Rectangle.Top &&
-                            this.Rectangle.Right > this.Player.Rectangle.Right &&
-                            this.Rectangle.Bottom > this.Player.Rectangle.Bottom &&
-                            this.Rectangle.Left < this.Player.Rectangle.Left;
-
-            return !contains;
+            return !this.Rectangle.Contains(this.Player.Rectangle);
         }
 
         public override void LoadContent(ContentManager contentManager, GraphicsDevice graphicsDevice)
