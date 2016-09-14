@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using SandS.Algorithm.Library.PositionNamespace;
 using System;
 using System.Collections.Generic;
-using SoonRemoveStuff;
+using SandS.Algorithm.Extensions.IComparableExtensionNamespace;
 using XonixGame.Configuration;
 using XonixGame.ContentMemoryStorageNamespace;
 
@@ -33,6 +33,11 @@ namespace XonixGame.Entities
         {
             spriteBatch.Draw(this.Texture, Vector2.Zero);
             this.Player.Draw(spriteBatch);
+
+            foreach (var playerPosition in this.PlayerPositions)
+            {
+                spriteBatch.Draw(TextureStorage.Instance.Get(TextureType.Default), playerPosition.ToVector2());
+            }
         }
 
         private Position PreviousPosition { get; set; }

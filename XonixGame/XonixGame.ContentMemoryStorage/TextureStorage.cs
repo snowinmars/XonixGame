@@ -25,15 +25,15 @@ namespace XonixGame.ContentMemoryStorageNamespace
         #endregion singleton
 
         public Texture2D Get(TextureType textureType)
-            => this.textureStorage[textureType];
+            => this.TextureDictionary[textureType];
 
-        private IDictionary<TextureType, Texture2D> textureStorage { get; set; }
+        private IDictionary<TextureType, Texture2D> TextureDictionary { get; set; }
         private ContentManager ContentManager { get; set; }
 
         public void Initialize(ContentManager contentManager, GraphicsDevice graphicsDevice)
         {
             this.ContentManager = contentManager;
-            this.textureStorage = new Dictionary<TextureType, Texture2D>
+            this.TextureDictionary = new Dictionary<TextureType, Texture2D>
             {
                 {
                     TextureType.Default,
