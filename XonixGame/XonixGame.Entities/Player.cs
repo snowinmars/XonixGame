@@ -1,11 +1,9 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using SoonRemoveStuff;
 
 namespace XonixGame.Entities
 {
-    public class Player : SoonRemoveStuff.IDrawable, IUpdatable
+    public class Player
     {
         public Player(Head head)
         {

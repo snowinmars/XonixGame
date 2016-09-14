@@ -1,8 +1,8 @@
-﻿using SoonRemoveStuff;
+﻿using SandS.Algorithm.Library.EnumsNamespace;
+using SandS.Algorithm.Library.PositionNamespace;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using SandS.Algorithm.Library.PositionNamespace;
 
 namespace XonixGame.Entities
 {

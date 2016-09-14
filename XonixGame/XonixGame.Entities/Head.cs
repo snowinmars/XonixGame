@@ -1,23 +1,16 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using SoonRemoveStuff;
-using System;
 using SandS.Algorithm.Library.EnumsNamespace;
 using SandS.Algorithm.Library.PositionNamespace;
+using System;
 using XonixGame.Configuration;
+using XonixGame.Enums;
 using Color = Microsoft.Xna.Framework.Color;
-using Commands = SoonRemoveStuff.Commands;
 
 namespace XonixGame.Entities
 {
-    public enum MovementType
-    {
-        JustPress = 0,
-        PressAndHold = 1,
-    }
-
-    public class Head : AbstractItem, SoonRemoveStuff.IDrawable, IUpdatable
+    public class Head : AbstractItem
     {
         #region Public Constructors
 
@@ -92,6 +85,7 @@ namespace XonixGame.Entities
                             this.ActualSpeed += this.HeadFlyweight.CommandDirectionBinder[command];
                         }
                         break;
+
                     case MovementType.PressAndHold:
                         if (this.KeyboardInputHelper.WasKeyPressed(key))
                         {
@@ -99,6 +93,7 @@ namespace XonixGame.Entities
                             wasKeyPressed = true;
                         }
                         break;
+
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
@@ -114,12 +109,12 @@ namespace XonixGame.Entities
         {
             if (Math.Abs(this.ActualSpeed.X) > Config.MaxSpeedX)
             {
-                this.ActualSpeed.X = Math.Sign(this.ActualSpeed.X)*Config.MaxSpeedX;
+                this.ActualSpeed.X = Math.Sign(this.ActualSpeed.X) * Config.MaxSpeedX;
             }
 
             if ((Math.Abs(this.ActualSpeed.Y)) > Config.MaxSpeedY)
             {
-                this.ActualSpeed.Y = Math.Sign(this.ActualSpeed.Y)*Config.MaxSpeedY;
+                this.ActualSpeed.Y = Math.Sign(this.ActualSpeed.Y) * Config.MaxSpeedY;
             }
         }
 

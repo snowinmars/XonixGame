@@ -1,8 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Input;
-using SoonRemoveStuff;
-using System.Collections.Generic;
+using SandS.Algorithm.Library.EnumsNamespace;
 using SandS.Algorithm.Library.PositionNamespace;
-using Scope = SoonRemoveStuff.Scope;
+using System.Collections.Generic;
 
 namespace XonixGame.Configuration
 {
@@ -16,32 +15,9 @@ namespace XonixGame.Configuration
             {Keys.Right, Commands.MoveRight},
         };
 
-        public static StateSet HeadCommonStrategy { get; } = new StateSet(new Scope(0),
-                                                                            new List<Commands>
-                                                                            {
-                                                                                Commands.Wait,
-                                                                            });
-
-        public static StateSet HorizontalMovementStrategy { get; } = new StateSet(new Scope(1),
-                                                                            new List<Commands>
-                                                                            {
-                                                                                Commands.MoveLeft,
-                                                                                Commands.MoveRight,
-                                                                                Commands.Wait,
-                                                                            });
-
-        public static StateSet VerticalMovementStrategy { get; } = new StateSet(new Scope(2),
-                                                                            new List<Commands>
-                                                                            {
-                                                                                Commands.MoveUp,
-                                                                                Commands.MoveDown,
-                                                                                Commands.Wait,
-                                                                            });
-
         public static int MaxSpeedX { get; set; } = 1;
         public static int MaxSpeedY { get; set; } = 1;
-        public static Position PositionEpsilon { get; set; } = new Position(4,4);
-
+        public static Position PositionEpsilon { get; set; } = new Position(4, 4);
 
         /// <summary>
         /// Speed in pixels per tick

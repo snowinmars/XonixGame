@@ -1,12 +1,11 @@
-﻿using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using SoonRemoveStuff;
-using System.Collections.Generic;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 using SandS.Algorithm.Library.PositionNamespace;
-using SandS.Algorithm.Library.StorageNamespace;
+using System;
+using System.Collections.Generic;
 using XonixGame.Configuration;
+using XonixGame.ContentMemoryStorageNamespace;
 
 namespace XonixGame.Entities
 {
@@ -76,7 +75,6 @@ namespace XonixGame.Entities
 
         public override void Initialize()
         {
-            
         }
     }
 }

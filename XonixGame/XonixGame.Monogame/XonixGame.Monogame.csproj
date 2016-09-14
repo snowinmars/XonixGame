@@ -67,16 +67,8 @@
       <HintPath>..\packages\SandS.Algorithm.Library.Graph.2.0.1.01\lib\SandS.Algorithm.Library.Graph.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SandS.Algorithm.Library.Menu, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SandS.Algorithm.Library.Menu.2.0.1.01\lib\SandS.Algorithm.Library.Menu.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="SandS.Algorithm.Library.Other, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SandS.Algorithm.Library.Other.2.0.1.02\lib\SandS.Algorithm.Library.Other.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="SandS.Algorithm.Library.Storage, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SandS.Algorithm.Library.Storage.2.0.1.02\lib\SandS.Algorithm.Library.Storage.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -99,6 +91,10 @@
     <ProjectReference Include="..\SoonRemoveStuff\SoonRemoveStuff.csproj">
       <Project>{edcfc0f6-4ce6-4ec9-98cf-7e543930eb53}</Project>
       <Name>SoonRemoveStuff</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XonixGame.ContentMemoryStorage\XonixGame.ContentMemoryStorage.csproj">
+      <Project>{EE581CA2-6280-43E6-BACA-8B8313A4F108}</Project>
+      <Name>XonixGame.ContentMemoryStorage</Name>
     </ProjectReference>
     <ProjectReference Include="..\XonixGame.Entities\XonixGame.Entities.csproj">
       <Project>{90868996-F3F7-4B71-9A4B-FC4FD25A31BE}</Project>

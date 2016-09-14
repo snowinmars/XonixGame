@@ -1,10 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using SandS.Algorithm.Library.OtherNamespace;
-using IUpdatable = SoonRemoveStuff.IUpdatable;
 
 namespace XonixGame.Entities
 {
-    public abstract class AbstractItem : IUpdatable
+    public abstract class AbstractItem
     {
         protected KeyboardInputHelper KeyboardInputHelper { get; }
 

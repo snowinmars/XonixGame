@@ -1,8 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using SandS.Algorithm.Library.StorageNamespace;
-using SoonRemoveStuff;
+using XonixGame.ContentMemoryStorageNamespace;
 using XonixGame.Entities;
 
 namespace XonixGame.Monogame
@@ -17,6 +16,7 @@ namespace XonixGame.Monogame
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
         private World world;
+
         #endregion Private Fields
 
         #region Public Constructors
@@ -25,7 +25,6 @@ namespace XonixGame.Monogame
         {
             this.graphics = new GraphicsDeviceManager(this);
             this.Content.RootDirectory = "Content";
-            
         }
 
         #endregion Public Constructors
@@ -66,7 +65,7 @@ namespace XonixGame.Monogame
 
             var head = new Head(100, 100);
             var player = new Player(head);
-            this.world = new MenuWorld();
+            this.world = new GameWorld(player);
             this.world.Initialize();
             base.Initialize();
         }
