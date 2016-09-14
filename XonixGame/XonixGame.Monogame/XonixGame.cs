@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using SandS.Algorithm.Library.PositionNamespace;
+using XonixGame.Configuration;
 using XonixGame.ContentMemoryStorageNamespace;
 using XonixGame.Entities;
 
@@ -64,7 +66,8 @@ namespace XonixGame.Monogame
             FontStorage.Instance.Initialize(this.Content);
 
             var player = new Player(100,100);
-            this.world = new GameWorld(player);
+            
+            this.world = new GameWorld(player, Config.WorldSize);
             this.world.Initialize();
             base.Initialize();
         }

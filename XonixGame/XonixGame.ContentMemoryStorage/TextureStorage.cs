@@ -5,6 +5,7 @@ using SandS.Algorithm.CommonNamespace;
 using SandS.Algorithm.Extensions.GraphicsDeviceExtensionNamespace;
 using System;
 using System.Collections.Generic;
+using XonixGame.Configuration;
 
 namespace XonixGame.ContentMemoryStorageNamespace
 {
@@ -34,11 +35,14 @@ namespace XonixGame.ContentMemoryStorageNamespace
             this.textureStorage = new Dictionary<TextureType, Texture2D>
             {
                 {
-                    TextureType.Default, graphicsDevice.Generate(10, 10, new Color(CommonValues.Random.Next(),
-                        CommonValues.Random.Next(),
-                        CommonValues.Random.Next(),
-                        CommonValues.Random.Next()))
-                }
+                    TextureType.Player, graphicsDevice.Generate(10, 10, new Color(CommonValues.Random.Next(),
+                                                                                    CommonValues.Random.Next(),
+                                                                                    CommonValues.Random.Next(),
+                                                                                    CommonValues.Random.Next()))
+                },
+                {
+                    TextureType.World, graphicsDevice.Generate(Config.WorldSize.X, Config.WorldSize.Y, Color.Aqua, 2, Color.Black)
+                },
             };
         }
     }

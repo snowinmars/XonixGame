@@ -40,6 +40,10 @@
       <HintPath>..\packages\SandS.Algorithm.Extensions.GraphicsDeviceExtension.2.0.1.01\lib\SandS.Algorithm.Extensions.GraphicsDeviceExtension.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="SandS.Algorithm.Library.Other, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SandS.Algorithm.Library.Other.2.0.2.01\lib\SandS.Algorithm.Library.Other.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -58,6 +62,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\XonixGame.Configuration\XonixGame.Configuration.csproj">
+      <Project>{EF4C0811-3133-401E-ADD3-BA2AE5B06078}</Project>
+      <Name>XonixGame.Configuration</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

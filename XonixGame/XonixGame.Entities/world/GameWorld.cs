@@ -11,27 +11,26 @@ namespace XonixGame.Entities
 {
     public class GameWorld : World
     {
-        public GameWorld(Player player) : base()
+        public GameWorld(Player player, Position size) : base()
         {
             this.Player = player;
             this.playerPositions = new List<Position>(128);
             this.PreviousPosition = this.Player.Position;
+
+            this.Rectangle = new Rectangle(Point.Zero, size.ToPoint());
         }
 
-        public override Rectangle Rectangle
-        {
-            get
-            {
-                return new Rectangle(0, 0, 200, 200);
-            }
-        }
-
+        public override Rectangle Rectangle { get; }
+       
         private IList<Position> playerPositions { get; }
 
         public Player Player { get; private set; }
 
+        public Texture2D Texture { get; private set; }
+
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            spriteBatch.Draw(this.Texture, Vector2.Zero);
             this.Player.Draw(spriteBatch);
         }
 
@@ -47,19 +46,16 @@ namespace XonixGame.Entities
             {
                 throw new ArgumentOutOfRangeException();
             }
-            else
-            {
-                //if (this.PreviousPosition - this.Player.Position > Config.PositionEpsilon)
-                Position p = new Position();
-                p.X = this.PreviousPosition.X - this.Player.Position.X;
-                p.Y = this.PreviousPosition.Y - this.Player.Position.Y;
 
-                if (p.X > Config.PositionEpsilon.X ||
-                    p.Y > Config.PositionEpsilon.Y)
-                {
-                    this.playerPositions.Add(this.Player.Position);
-                    this.PreviousPosition = this.Player.Position;
-                }
+            this.HandlePosition();
+        }
+
+        private void HandlePosition()
+        {
+            if (this.PreviousPosition - this.Player.Position > Config.PositionEpsilon)
+            {
+                this.playerPositions.Add(this.Player.Position);
+                this.PreviousPosition = this.Player.Position;
             }
         }
 
@@ -70,7 +66,8 @@ namespace XonixGame.Entities
 
         public override void LoadContent(ContentManager contentManager, GraphicsDevice graphicsDevice)
         {
-            this.Player.Texture = TextureStorage.Instance.Get(TextureType.Default);
+            this.Texture = TextureStorage.Instance.Get(TextureType.World);
+            this.Player.Texture = TextureStorage.Instance.Get(TextureType.Player);
         }
 
         public override void Initialize()
