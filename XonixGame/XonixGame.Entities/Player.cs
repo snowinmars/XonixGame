@@ -86,9 +86,14 @@ namespace XonixGame.Entities
                         break;
 
                     case MovementType.PressAndHold:
-                        if (this.KeyboardInputHelper.WasKeyPressed(key))
+                        if (this.KeyboardInputHelper.IsKeyDown(key))
                         {
                             this.ActualSpeed += this.HeadFlyweight.CommandDirectionBinder[command];
+                            wasKeyPressed = true;
+                        }
+                        if (this.KeyboardInputHelper.WasKeyReleased(key))
+                        {
+                            this.ActualSpeed -= this.HeadFlyweight.CommandDirectionBinder[command];
                             wasKeyPressed = true;
                         }
                         break;

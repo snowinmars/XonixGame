@@ -34,7 +34,7 @@ namespace XonixGame.ContentMemoryStorageNamespace
             this.textureStorage = new Dictionary<TextureType, Texture2D>
             {
                 {
-                    TextureType.Default, graphicsDevice.Generate(1, 1, new Color(CommonValues.Random.Next(),
+                    TextureType.Default, graphicsDevice.Generate(10, 10, new Color(CommonValues.Random.Next(),
                         CommonValues.Random.Next(),
                         CommonValues.Random.Next(),
                         CommonValues.Random.Next()))
