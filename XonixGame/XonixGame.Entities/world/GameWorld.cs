@@ -61,14 +61,34 @@ namespace XonixGame.Entities
 
         private void FinalizePlayerLine()
         {
+            int insideArea = 0;
+            int outsideArea = 0;
+
             for (int i = 0; i < Config.AreaAccuracyCalculation; i++)
             {
-                int x = CommonValues.Random.Next(this.Rectangle.Left, this.Rectangle.Right);
-                int y = CommonValues.Random.Next(this.Rectangle.Top, this.Rectangle.Bottom);
-                Position randomDot = new Position(x,y);
+                Position randomDot = GetRandomDot();
 
-                int intersectionCount = GetintersectionCount(randomDot);
+                if (IsOutside(randomDot))
+                {
+                    ++outsideArea;
+                }
+                else
+                {
+                    ++insideArea;
+                }
             }
+        }
+
+        private bool IsOutside(Position randomDot)
+        {
+            return GetintersectionCount(randomDot) % 2 == 0;
+        }
+
+        private Position GetRandomDot()
+        {
+            int x = CommonValues.Random.Next(this.Rectangle.Left, this.Rectangle.Right);
+            int y = CommonValues.Random.Next(this.Rectangle.Top, this.Rectangle.Bottom);
+            return new Position(x, y);
         }
 
         private int GetintersectionCount(Position dot)
@@ -77,16 +97,26 @@ namespace XonixGame.Entities
 
             for (int i = 1, j = 0; i < this.PlayerPositions.Count; i++, j++)
             {
-                if (((this.PlayerPositions[i].Y <= dot.Y && dot.Y < this.PlayerPositions[j].Y) ||
-                     (this.PlayerPositions[j].Y <= dot.Y && dot.Y < this.PlayerPositions[i].Y)) &&
-                    (dot.X >
-                     (this.PlayerPositions[j].X - this.PlayerPositions[i].X)*(dot.Y - this.PlayerPositions[i].Y)/
-                     (this.PlayerPositions[j].Y - this.PlayerPositions[i].Y) + this.PlayerPositions[i].X))
+                bool isDotBetweenYPositions = (this.PlayerPositions[i].Y <= dot.Y && dot.Y < this.PlayerPositions[j].Y) ||
+                                                (this.PlayerPositions[j].Y <= dot.Y && dot.Y < this.PlayerPositions[i].Y);
+
+                if (!isDotBetweenYPositions)
                 {
-                    // intersect
+                    continue;
                 }
 
-               
+                Position deltaPosition = new Position((this.PlayerPositions[j].X - this.PlayerPositions[i].X),
+                                                        this.PlayerPositions[j].Y - this.PlayerPositions[i].Y);
+
+                int interpolationCoefficient = (dot.Y - this.PlayerPositions[i].Y) / deltaPosition.Y;
+
+                int interpolatedX = deltaPosition.X * interpolationCoefficient + this.PlayerPositions[i].X;
+
+                if (isDotBetweenYPositions &&
+                    (dot.X > interpolatedX))
+                {
+                    ++count;
+                }
             }
 
             return count;
