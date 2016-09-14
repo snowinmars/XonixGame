@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using SandS.Algorithm.Library.PositionNamespace;
 using System;
 using System.Collections.Generic;
+using SoonRemoveStuff;
 using XonixGame.Configuration;
 using XonixGame.ContentMemoryStorageNamespace;
 
@@ -44,27 +45,16 @@ namespace XonixGame.Entities
 
             if (isborderCollise)
             {
-                if (this.Player.Position.X <= 0)
-                {
-                    this.Player.Position.X = 0;
-                }
-                if (this.Player.Position.X >= Config.WorldSize.X - Config.PlayerSize.X)
-                {
-                    this.Player.Position.X = Config.WorldSize.X - Config.PlayerSize.X;
-                }
-                if (this.Player.Position.Y <= 0)
-                {
-                    this.Player.Position.Y = 0;
-                }
-                if (this.Player.Position.Y >= Config.WorldSize.Y - Config.PlayerSize.Y)
-                {
-                    this.Player.Position.Y = Config.WorldSize.Y - Config.PlayerSize.Y;
-                }
+                this.Player.Position.X = this.Player.Position.X.CantBeLess(0);
+                this.Player.Position.X = this.Player.Position.X.CantBeMore(Config.WorldSize.X - Config.PlayerSize.X);
+                this.Player.Position.Y = this.Player.Position.Y.CantBeLess(0);
+                this.Player.Position.Y = this.Player.Position.Y.CantBeMore(Config.WorldSize.Y - Config.PlayerSize.Y);
             }
 
             this.HandlePosition();
         }
 
+        
         private void HandlePosition()
         {
             if (this.PreviousPosition - this.Player.Position > Config.PositionEpsilon)

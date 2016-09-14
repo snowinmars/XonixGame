@@ -64,6 +64,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SoonRemoveStuff\SoonRemoveStuff.csproj">
+      <Project>{edcfc0f6-4ce6-4ec9-98cf-7e543930eb53}</Project>
+      <Name>SoonRemoveStuff</Name>
+    </ProjectReference>
     <ProjectReference Include="..\XonixGame.Configuration\XonixGame.Configuration.csproj">
       <Project>{EF4C0811-3133-401E-ADD3-BA2AE5B06078}</Project>
       <Name>XonixGame.Configuration</Name>

@@ -1,87 +1,42 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace SoonRemoveStuff
 {
-    public static class GraphicsDeviceExtensions
+    public static class A
     {
-        /// <summary>
-        /// Generate rectangle texture
-        /// </summary>
-        /// <param name="device">Game graphic device</param>
-        /// <param name="width"></param>
-        /// <param name="height"></param>
-        /// <param name="color"></param>
-        /// <returns></returns>
-        public static Texture2D Generate(this GraphicsDevice device, int width, int height, Color color)
+        public static T CantBeMore<T>(this T value, T cutoff)
+            where T : IComparable
         {
-            Texture2D texture = new Texture2D(device, width, height);
-            Color[] data = new Color[width * height];
-
-            for (int i = 0; i < data.Length; i++)
+            if (value.CompareTo(cutoff) > 0)
             {
-                data[i] = color;
+                value = cutoff;
             }
 
-            texture.SetData(data);
-
-            return texture;
+            return value;
         }
 
-        /// <summary>
-        /// Generate rectangle texture with borders
-        /// </summary>
-        /// <param name="device">Game graphic device</param>
-        /// <param name="width"></param>
-        /// <param name="height"></param>
-        /// <param name="textureColor"></param>
-        /// <param name="borderThick"></param>
-        /// <param name="borderColor"></param>
-        /// <returns></returns>
-        public static Texture2D Generate(this GraphicsDevice device, int width, int height, Color textureColor, int borderThick, Color borderColor)
+        public static T CantBeLess<T>(this T value, T cutoff)
+            where T : IComparable
         {
-            Texture2D texture = new Texture2D(device, width, height);
-
-            Color[] data = new Color[width * height];
-
-            for (int i = 0; i < data.Length; i++)
+            if (value.CompareTo(cutoff) < 0)
             {
-                data[i] = textureColor;
+                value = cutoff;
             }
 
-            // painting vertical borders
-            for (int i = 0; i < data.Length; i = i + width)
-            {
-                for (int j = 0; j < borderThick; j++)
-                {
-                    data[i + j] = borderColor;
-                }
+            return value;
+        }
+    }
 
-                if (i > 1)
-                {
-                    for (int j = 0; j < borderThick; j++)
-                    {
-                        data[i - 1 - j] = borderColor;
-                    }
-                }
-            }
-
-            // painting horizontal borders
-            for (int j = 0; j < borderThick; j++)
-            {
-                int bias = j * width;
-
-                for (int i = 0; i < height; i++)
-                {
-                    data[i + bias] = borderColor;
-                    data[data.Length - i - 1 - j * width] = borderColor;
-                }
-            }
-
-            //set the color
-            texture.SetData(data);
-
-            return texture;
+    public static class B
+    {
+        public static Color NextColor(this Random random)
+        {
+            return new Color(random.Next(0,255),
+                                random.Next(0, 255),
+                                random.Next(0, 255),
+                                random.Next(0, 255));
         }
     }
 }
