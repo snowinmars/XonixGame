@@ -66,9 +66,9 @@ namespace XonixGame.Entities
 
             for (int i = 0; i < Config.AreaAccuracyCalculation; i++)
             {
-                Position randomDot = GetRandomDot();
+                Position randomDot = this.GetRandomDot();
 
-                if (IsOutside(randomDot))
+                if (this.IsOutside(randomDot))
                 {
                     ++outsideArea;
                 }
@@ -81,7 +81,7 @@ namespace XonixGame.Entities
 
         private bool IsOutside(Position randomDot)
         {
-            return GetintersectionCount(randomDot) % 2 == 0;
+            return this.GetintersectionCount(randomDot) % 2 == 0;
         }
 
         private Position GetRandomDot()
@@ -93,6 +93,9 @@ namespace XonixGame.Entities
 
         private int GetintersectionCount(Position dot)
         {
+            // Dot emit a ray to the left.
+            // I want to find, how many times this ray intersects with my figure.
+
             int count = 0;
 
             for (int i = 1, j = 0; i < this.PlayerPositions.Count; i++, j++)
@@ -105,15 +108,14 @@ namespace XonixGame.Entities
                     continue;
                 }
 
-                Position deltaPosition = new Position((this.PlayerPositions[j].X - this.PlayerPositions[i].X),
+                Position deltaPosition = new Position(this.PlayerPositions[j].X - this.PlayerPositions[i].X,
                                                         this.PlayerPositions[j].Y - this.PlayerPositions[i].Y);
 
                 int interpolationCoefficient = (dot.Y - this.PlayerPositions[i].Y) / deltaPosition.Y;
 
                 int interpolatedX = deltaPosition.X * interpolationCoefficient + this.PlayerPositions[i].X;
 
-                if (isDotBetweenYPositions &&
-                    (dot.X > interpolatedX))
+                if (dot.X > interpolatedX)
                 {
                     ++count;
                 }
