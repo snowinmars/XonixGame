@@ -34,7 +34,7 @@ namespace XonixGame.Monogame
 
             this.spriteBatch.Begin();
 
-            this.world.Draw(gameTime, this.spriteBatch);
+            this.world.Draw(this.spriteBatch);
 
             this.spriteBatch.End();
 
@@ -51,8 +51,8 @@ namespace XonixGame.Monogame
         {
             // Add your initialization logic here
 
-            TextureStorage.Instance.Initialize(this.Content, this.GraphicsDevice);
-            FontStorage.Instance.Initialize(this.Content);
+            TextureStorage.Initialize(this.Content, this.GraphicsDevice);
+            FontStorage.Initialize(this.Content);
 
             RasterizerState rasterizerState = new RasterizerState();
             rasterizerState.CullMode = CullMode.None;
@@ -103,7 +103,7 @@ namespace XonixGame.Monogame
 
             // Add your update logic here
 
-            this.world.Update(gameTime);
+            this.world.Update();
 
             base.Update(gameTime);
         }

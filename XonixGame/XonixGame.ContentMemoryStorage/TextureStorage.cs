@@ -4,36 +4,25 @@ using Microsoft.Xna.Framework.Graphics;
 using SandS.Algorithm.CommonNamespace;
 using SandS.Algorithm.Extensions.GraphicsDeviceExtensionNamespace;
 using SoonRemoveStuff;
-using System;
 using System.Collections.Generic;
 using XonixGame.Configuration;
+using XonixGame.Enums;
 
 namespace XonixGame.ContentMemoryStorageNamespace
 {
-    public class TextureStorage : ITextureStorage
+    public static class TextureStorage
     {
-        #region singleton
+        private static ContentManager ContentManager { get; set; }
 
-        protected TextureStorage()
+        private static IDictionary<TextureType, Texture2D> TextureDictionary { get; set; }
+
+        public static Texture2D Get(TextureType textureType)
+                            => TextureStorage.TextureDictionary[textureType];
+
+        public static void Initialize(ContentManager contentManager, GraphicsDevice graphicsDevice)
         {
-        }
-
-        private static readonly Lazy<TextureStorage> instance = new Lazy<TextureStorage>(() => new TextureStorage());
-
-        public static TextureStorage Instance => TextureStorage.instance.Value;
-
-        #endregion singleton
-
-        public Texture2D Get(TextureType textureType)
-            => this.TextureDictionary[textureType];
-
-        private IDictionary<TextureType, Texture2D> TextureDictionary { get; set; }
-        private ContentManager ContentManager { get; set; }
-
-        public void Initialize(ContentManager contentManager, GraphicsDevice graphicsDevice)
-        {
-            this.ContentManager = contentManager;
-            this.TextureDictionary = new Dictionary<TextureType, Texture2D>
+            TextureStorage.ContentManager = contentManager;
+            TextureStorage.TextureDictionary = new Dictionary<TextureType, Texture2D>
             {
                 {
                     TextureType.Default,

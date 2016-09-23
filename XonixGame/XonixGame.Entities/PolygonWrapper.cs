@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using XonixGame.ContentMemoryStorageNamespace;
+using XonixGame.Enums;
 
 namespace XonixGame.Entities
 {
@@ -16,7 +17,7 @@ namespace XonixGame.Entities
 
         public void LoadContent()
         {
-            this.dotTexture = TextureStorage.Instance.Get(TextureType.Default);
+            this.dotTexture = TextureStorage.Get(TextureType.Default);
         }
 
         public void Draw(SpriteBatch spriteBatch)

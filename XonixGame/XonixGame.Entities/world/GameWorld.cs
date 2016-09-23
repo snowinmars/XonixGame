@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using SandS.Algorithm.Library.PositionNamespace;
 using System.Linq;
 using XonixGame.ContentMemoryStorageNamespace;
+using XonixGame.Enums;
 
 namespace XonixGame.Entities
 {
@@ -75,7 +76,7 @@ namespace XonixGame.Entities
 
         private void LoadContent()
         {
-            this.Texture = TextureStorage.Instance.Get(TextureType.World);
+            this.Texture = TextureStorage.Get(TextureType.World);
 
             this.Player.LoadContent();
             this.PolygonWrapper.LoadContent();

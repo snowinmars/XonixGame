@@ -55,8 +55,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FontStorage.cs" />
-    <Compile Include="IFontStorage.cs" />
-    <Compile Include="ITextureStorage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TextureStorage.cs" />
   </ItemGroup>
@@ -71,6 +69,10 @@
     <ProjectReference Include="..\XonixGame.Configuration\XonixGame.Configuration.csproj">
       <Project>{EF4C0811-3133-401E-ADD3-BA2AE5B06078}</Project>
       <Name>XonixGame.Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XonixGame.Enums\XonixGame.Enums.csproj">
+      <Project>{001E246F-0F06-4E44-90DF-6C083E01CCB0}</Project>
+      <Name>XonixGame.Enums</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

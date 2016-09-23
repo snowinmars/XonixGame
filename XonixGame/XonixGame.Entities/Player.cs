@@ -45,7 +45,7 @@ namespace XonixGame.Entities
 
         public void LoadContent()
         {
-            this.Texture = TextureStorage.Instance.Get(TextureType.Player);
+            this.Texture = TextureStorage.Get(TextureType.Player);
         }
 
         public override void Update()
