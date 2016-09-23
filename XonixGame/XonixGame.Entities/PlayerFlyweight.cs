@@ -10,7 +10,6 @@ namespace XonixGame.Entities
     {
         #region Singleton
 
-
         protected PlayerFlyweight()
         {
             Position wait = new Position(0, 0);
@@ -27,30 +26,13 @@ namespace XonixGame.Entities
                 {Commands.MoveLeft, left },
                 {Commands.MoveRight, right},
             };
-        }
-
-        public static PlayerFlyweight Instance => SingletonCreator<PlayerFlyweight>.CreatorInstance;
-
-        private sealed class SingletonCreator<S>
-            where S : class
-        {
-
-
-            public static S CreatorInstance { get; } = (S)typeof(S).GetConstructor(BindingFlags.Instance | BindingFlags.NonPublic,
-                                                                                    null,
-                                                                                    new Type[0],
-                                                                                    new ParameterModifier[0]).Invoke(null);
-
 
         }
+
+        public static PlayerFlyweight Instance { get; private set; } = new PlayerFlyweight();
+
         #endregion Singleton
 
-
-
-
-
-        public IDictionary<Commands, Position> CommandDirectionBinder { get; set; }
-
-
+        public IDictionary<Commands, Position> CommandDirectionBinder { get; private set; }
     }
 }
