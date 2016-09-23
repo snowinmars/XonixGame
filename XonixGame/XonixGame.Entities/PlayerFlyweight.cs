@@ -1,8 +1,6 @@
 ﻿using SandS.Algorithm.Library.EnumsNamespace;
 using SandS.Algorithm.Library.PositionNamespace;
-using System;
 using System.Collections.Generic;
-using System.Reflection;
 
 namespace XonixGame.Entities
 {
@@ -26,7 +24,6 @@ namespace XonixGame.Entities
                 {Commands.MoveLeft, left },
                 {Commands.MoveRight, right},
             };
-
         }
 
         public static PlayerFlyweight Instance { get; private set; } = new PlayerFlyweight();

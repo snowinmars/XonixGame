@@ -1,5 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using SandS.Algorithm.Library.OtherNamespace;
+﻿using SandS.Algorithm.Library.OtherNamespace;
 
 namespace XonixGame.Entities
 {
