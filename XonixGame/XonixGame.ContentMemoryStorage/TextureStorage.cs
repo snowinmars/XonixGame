@@ -3,10 +3,10 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using SandS.Algorithm.CommonNamespace;
 using SandS.Algorithm.Extensions.GraphicsDeviceExtensionNamespace;
+using SoonRemoveStuff;
 using System;
 using System.Collections.Generic;
 using XonixGame.Configuration;
-using SoonRemoveStuff;
 
 namespace XonixGame.ContentMemoryStorageNamespace
 {

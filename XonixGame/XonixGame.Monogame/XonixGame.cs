@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using SandS.Algorithm.Library.PositionNamespace;
 using XonixGame.Configuration;
 using XonixGame.ContentMemoryStorageNamespace;
 using XonixGame.Entities;
@@ -13,25 +12,15 @@ namespace XonixGame.Monogame
     /// </summary>
     public class XonixGame : Game
     {
-
-
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
         private World world;
-
-
-
-
 
         public XonixGame()
         {
             this.graphics = new GraphicsDeviceManager(this);
             this.Content.RootDirectory = "Content";
         }
-
-
-
-
 
         /// <summary>
         /// This is called when the game should draw itself.
@@ -118,7 +107,5 @@ namespace XonixGame.Monogame
 
             base.Update(gameTime);
         }
-
-
     }
 }

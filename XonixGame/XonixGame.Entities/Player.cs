@@ -48,13 +48,13 @@ namespace XonixGame.Entities
             this.Texture = TextureStorage.Instance.Get(TextureType.Player);
         }
 
-        public override void Update(GameTime gameTime)
+        public override void Update()
         {
             this.ReadInput();
             this.SpeedCut();
             this.Move();
 
-            base.Update(gameTime);
+            base.Update();
         }
 
         private void Move()

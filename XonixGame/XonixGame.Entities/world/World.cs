@@ -10,11 +10,9 @@ namespace XonixGame.Entities
         {
         }
 
-        public abstract Rectangle Rectangle { get; }
+        public abstract void Draw(SpriteBatch spriteBatch);
 
-        public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch);
-
-        public abstract void Update(GameTime gameTime);
+        public abstract void Update();
 
         public abstract void LoadContent(ContentManager contentManager, GraphicsDevice graphicsDevice);
 

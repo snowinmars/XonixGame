@@ -1,6 +1,5 @@
-﻿using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using System;
 
 namespace SoonRemoveStuff
 {
@@ -8,7 +7,7 @@ namespace SoonRemoveStuff
     {
         public static Color NextColor(this Random random)
         {
-            return new Color(random.Next(0,255),
+            return new Color(random.Next(0, 255),
                                 random.Next(0, 255),
                                 random.Next(0, 255),
                                 random.Next(0, 255));

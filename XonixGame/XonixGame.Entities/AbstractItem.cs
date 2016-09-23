@@ -12,9 +12,9 @@ namespace XonixGame.Entities
             this.KeyboardInputHelper = new KeyboardInputHelper();
         }
 
-        public virtual void Update(GameTime gameTime)
+        public virtual void Update()
         {
-            this.KeyboardInputHelper.Update(gameTime);
+            this.KeyboardInputHelper.Update(null); // TODO ?
         }
     }
 }
