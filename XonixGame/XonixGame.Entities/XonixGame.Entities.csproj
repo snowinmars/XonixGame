@@ -68,8 +68,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AbstractItem.cs" />
-    <Compile Include="HeadFlyweight.cs" />
+    <Compile Include="PlayerFlyweight.cs" />
     <Compile Include="Player.cs" />
+    <Compile Include="PolygonWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="world\GameWorld.cs" />
     <Compile Include="world\World.cs" />

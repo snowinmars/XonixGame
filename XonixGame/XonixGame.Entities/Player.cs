@@ -1,18 +1,17 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SandS.Algorithm.Library.EnumsNamespace;
 using SandS.Algorithm.Library.PositionNamespace;
+using System;
 using XonixGame.Configuration;
+using XonixGame.ContentMemoryStorageNamespace;
 using XonixGame.Enums;
 
 namespace XonixGame.Entities
 {
     public class Player : AbstractItem
     {
-        #region Public Constructors
-
         public Player(int x, int y) : this(new Position(x, y))
         {
         }
@@ -21,7 +20,7 @@ namespace XonixGame.Entities
         {
             this.Position = position;
 
-            this.HeadFlyweight = HeadFlyweight.Instance;
+            this.PlayerFlyweight = PlayerFlyweight.Instance;
 
             this.ActualSpeed = new Position();
 
@@ -29,24 +28,24 @@ namespace XonixGame.Entities
             this.MovementType = MovementType.PressAndHold;
         }
 
-        #endregion Public Constructors
-
-        #region Public Properties
-
         public MovementType MovementType { get; set; }
-        public Texture2D Texture { get; set; }
+
+        public Position Position { get; private set; }
+
         private Position ActualSpeed { get; set; }
-        private HeadFlyweight HeadFlyweight { get; }
-        public Position Position { get; set; }
-        public Rectangle Rectangle => new Rectangle(this.Position.X, this.Position.Y, Config.PlayerSize.X, Config.PlayerSize.Y);
 
-        #endregion Public Properties
+        private PlayerFlyweight PlayerFlyweight { get; }
 
-        #region Public Methods
+        private Texture2D Texture { get; set; }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(this.Texture, this.Position.ToVector2(), Color.Red);
+        }
+
+        public void LoadContent()
+        {
+            this.Texture = TextureStorage.Instance.Get(TextureType.Player);
         }
 
         public override void Update(GameTime gameTime)
@@ -58,10 +57,6 @@ namespace XonixGame.Entities
             base.Update(gameTime);
         }
 
-        #endregion Public Methods
-
-        #region Private Methods
-
         private void Move()
         {
             this.Position += this.ActualSpeed;
@@ -69,8 +64,6 @@ namespace XonixGame.Entities
 
         private void ReadInput()
         {
-            bool wasKeyPressed = false;
-
             foreach (var keyCommandPair in Config.KeyCommandBinding)
             {
                 Keys key = keyCommandPair.Key;
@@ -79,33 +72,31 @@ namespace XonixGame.Entities
                 switch (this.MovementType)
                 {
                     case MovementType.JustPress:
-                        if (this.KeyboardInputHelper.WasKeyPressed(key))
                         {
-                            this.ActualSpeed += this.HeadFlyweight.CommandDirectionBinder[command];
+                            if (this.KeyboardInputHelper.WasKeyPressed(key))
+                            {
+                                this.ActualSpeed += this.PlayerFlyweight.CommandDirectionBinder[command];
+                            }
                         }
                         break;
 
                     case MovementType.PressAndHold:
-                        if (this.KeyboardInputHelper.IsKeyDown(key))
                         {
-                            this.ActualSpeed += this.HeadFlyweight.CommandDirectionBinder[command];
-                            wasKeyPressed = true;
-                        }
-                        if (this.KeyboardInputHelper.WasKeyReleased(key))
-                        {
-                            this.ActualSpeed -= this.HeadFlyweight.CommandDirectionBinder[command];
-                            wasKeyPressed = true;
+                            if (this.KeyboardInputHelper.IsKeyDown(key))
+                            {
+                                this.ActualSpeed += this.PlayerFlyweight.CommandDirectionBinder[command];
+                            }
+
+                            if (this.KeyboardInputHelper.WasKeyReleased(key))
+                            {
+                                this.ActualSpeed -= this.PlayerFlyweight.CommandDirectionBinder[command];
+                            }
                         }
                         break;
 
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
-            }
-
-            if (!wasKeyPressed)
-            {
-                this.ActualSpeed.SetZero();
             }
         }
 
@@ -121,7 +112,5 @@ namespace XonixGame.Entities
                 this.ActualSpeed.Y = Math.Sign(this.ActualSpeed.Y) * Config.MaxSpeedY;
             }
         }
-
-        #endregion Private Methods
     }
 }

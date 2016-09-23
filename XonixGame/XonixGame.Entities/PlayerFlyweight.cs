@@ -6,11 +6,12 @@ using System.Reflection;
 
 namespace XonixGame.Entities
 {
-    public class HeadFlyweight
+    public class PlayerFlyweight
     {
         #region Singleton
 
-        protected HeadFlyweight()
+
+        protected PlayerFlyweight()
         {
             Position wait = new Position(0, 0);
             Position up = new Position(0, -1);
@@ -28,27 +29,28 @@ namespace XonixGame.Entities
             };
         }
 
-        public static HeadFlyweight Instance => SingletonCreator<HeadFlyweight>.CreatorInstance;
+        public static PlayerFlyweight Instance => SingletonCreator<PlayerFlyweight>.CreatorInstance;
 
         private sealed class SingletonCreator<S>
             where S : class
         {
-            #region Public Properties
+
 
             public static S CreatorInstance { get; } = (S)typeof(S).GetConstructor(BindingFlags.Instance | BindingFlags.NonPublic,
                                                                                     null,
                                                                                     new Type[0],
                                                                                     new ParameterModifier[0]).Invoke(null);
 
-            #endregion Public Properties
-        }
 
+        }
         #endregion Singleton
 
-        #region Public Properties
+
+
+
 
         public IDictionary<Commands, Position> CommandDirectionBinder { get; set; }
 
-        #endregion Public Properties
+
     }
 }

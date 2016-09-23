@@ -13,15 +13,15 @@ namespace XonixGame.Monogame
     /// </summary>
     public class XonixGame : Game
     {
-        #region Private Fields
+
 
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
         private World world;
 
-        #endregion Private Fields
 
-        #region Public Constructors
+
+
 
         public XonixGame()
         {
@@ -29,9 +29,9 @@ namespace XonixGame.Monogame
             this.Content.RootDirectory = "Content";
         }
 
-        #endregion Public Constructors
 
-        #region Protected Methods
+
+
 
         /// <summary>
         /// This is called when the game should draw itself.
@@ -65,10 +65,14 @@ namespace XonixGame.Monogame
             TextureStorage.Instance.Initialize(this.Content, this.GraphicsDevice);
             FontStorage.Instance.Initialize(this.Content);
 
-            var player = new Player(100,100);
-            
+            RasterizerState rasterizerState = new RasterizerState();
+            rasterizerState.CullMode = CullMode.None;
+            this.GraphicsDevice.RasterizerState = rasterizerState;
+
+            var player = new Player(100, 100);
             this.world = new GameWorld(player, Config.WorldSize);
             this.world.Initialize();
+
             base.Initialize();
         }
 
@@ -115,6 +119,6 @@ namespace XonixGame.Monogame
             base.Update(gameTime);
         }
 
-        #endregion Protected Methods
+
     }
 }

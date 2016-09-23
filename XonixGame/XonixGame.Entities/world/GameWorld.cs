@@ -9,6 +9,9 @@ using SandS.Algorithm.CommonNamespace;
 using SandS.Algorithm.Extensions.IComparableExtensionNamespace;
 using XonixGame.Configuration;
 using XonixGame.ContentMemoryStorageNamespace;
+using SoonRemoveStuff;
+using System.Linq.Expressions;
+using System.Reflection;
 
 namespace XonixGame.Entities
 {
@@ -17,17 +20,20 @@ namespace XonixGame.Entities
         public GameWorld(Player player, Position size) : base()
         {
             this.Player = player;
-            this.PlayerPositions = new List<Position>(128);
+            this.PolygonWrapper = new PolygonWrapper();
             this.PreviousPosition = this.Player.Position;
 
             this.Rectangle = new Rectangle(Point.Zero, size.ToPoint());
         }
 
+        private PolygonWrapper PolygonWrapper { get; set; }
+
         public override Rectangle Rectangle { get; }
        
-        private IList<Position> PlayerPositions { get; }
 
         public Player Player { get; private set; }
+
+        
 
         public Texture2D Texture { get; private set; }
 
@@ -35,11 +41,7 @@ namespace XonixGame.Entities
         {
             spriteBatch.Draw(this.Texture, Vector2.Zero);
             this.Player.Draw(spriteBatch);
-
-            foreach (var playerPosition in this.PlayerPositions)
-            {
-                spriteBatch.Draw(TextureStorage.Instance.Get(TextureType.Default), playerPosition.ToVector2());
-            }
+            this.PolygonWrapper.Draw(spriteBatch);
         }
 
         private Position PreviousPosition { get; set; }
@@ -47,113 +49,59 @@ namespace XonixGame.Entities
         public override void Update(GameTime gameTime)
         {
             this.Player.Update(gameTime);
-
-            bool isborderCollise = this.CheckBorderCollise();
-
-            if (isborderCollise)
-            {
-                this.CutPlayerPosition();
-                this.FinalizePlayerLine();
-            }
-
-            this.HandlePosition();
+            this.PolygonWrapper.Update();
         }
 
-        private void FinalizePlayerLine()
-        {
-            int insideArea = 0;
-            int outsideArea = 0;
-
-            for (int i = 0; i < Config.AreaAccuracyCalculation; i++)
-            {
-                Position randomDot = this.GetRandomDot();
-
-                if (this.IsOutside(randomDot))
-                {
-                    ++outsideArea;
-                }
-                else
-                {
-                    ++insideArea;
-                }
-            }
-        }
-
-        private bool IsOutside(Position randomDot)
-        {
-            return this.GetintersectionCount(randomDot) % 2 == 0;
-        }
-
-        private Position GetRandomDot()
-        {
-            int x = CommonValues.Random.Next(this.Rectangle.Left, this.Rectangle.Right);
-            int y = CommonValues.Random.Next(this.Rectangle.Top, this.Rectangle.Bottom);
-            return new Position(x, y);
-        }
-
-        private int GetintersectionCount(Position dot)
-        {
-            // Dot emit a ray to the left.
-            // I want to find, how many times this ray intersects with my figure.
-
-            int count = 0;
-
-            for (int i = 1, j = 0; i < this.PlayerPositions.Count; i++, j++)
-            {
-                bool isDotBetweenYPositions = (this.PlayerPositions[i].Y <= dot.Y && dot.Y < this.PlayerPositions[j].Y) ||
-                                                (this.PlayerPositions[j].Y <= dot.Y && dot.Y < this.PlayerPositions[i].Y);
-
-                if (!isDotBetweenYPositions)
-                {
-                    continue;
-                }
-
-                Position deltaPosition = new Position(this.PlayerPositions[j].X - this.PlayerPositions[i].X,
-                                                        this.PlayerPositions[j].Y - this.PlayerPositions[i].Y);
-
-                int interpolationCoefficient = (dot.Y - this.PlayerPositions[i].Y) / deltaPosition.Y;
-
-                int interpolatedX = deltaPosition.X * interpolationCoefficient + this.PlayerPositions[i].X;
-
-                if (dot.X > interpolatedX)
-                {
-                    ++count;
-                }
-            }
-
-            return count;
-        }
-
-        private void CutPlayerPosition()
-        {
-            this.Player.Position.X = this.Player.Position.X.CantBeLess(0);
-            this.Player.Position.X = this.Player.Position.X.CantBeMore(Config.WorldSize.X - Config.PlayerSize.X);
-            this.Player.Position.Y = this.Player.Position.Y.CantBeLess(0);
-            this.Player.Position.Y = this.Player.Position.Y.CantBeMore(Config.WorldSize.Y - Config.PlayerSize.Y);
-        }
-
-        private void HandlePosition()
-        {
-            if (this.PreviousPosition - this.Player.Position > Config.PositionEpsilon)
-            {
-                this.PlayerPositions.Add(this.Player.Position);
-                this.PreviousPosition = this.Player.Position;
-            }
-        }
-
-        private bool CheckBorderCollise()
-        {
-            return !this.Rectangle.Contains(this.Player.Rectangle);
-        }
+        private Matrix WorldMatrix { get; set; }
+        private Matrix ViewMatrix { get; set; }
+        private Matrix ProjectionMatrix { get; set; }
+        private BasicEffect BasicEffect { get; set; }
 
         public override void LoadContent(ContentManager contentManager, GraphicsDevice graphicsDevice)
         {
+            this.LoadContent();
+
+            this.LoadMatrixes(graphicsDevice);
+
+            this.LoadEffects(graphicsDevice);
+
+            graphicsDevice.RasterizerState = RasterizerState.CullNone;
+        }
+
+        private void LoadEffects(GraphicsDevice graphicsDevice)
+        {
+            this.BasicEffect = new BasicEffect(graphicsDevice)
+            {
+                World = this.WorldMatrix,
+                View = this.ViewMatrix,
+                Projection = this.ProjectionMatrix,
+                VertexColorEnabled = true
+            };
+
+            this.BasicEffect.CurrentTechnique.Passes.First().Apply();
+        }
+
+        private void LoadMatrixes(GraphicsDevice graphicsDevice)
+        {
+            this.WorldMatrix = Matrix.Identity;
+            this.ViewMatrix = Matrix.CreateLookAt(new Vector3(0, 0, -3), Vector3.Zero, Vector3.Up);
+            this.ProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4,
+                                                                        graphicsDevice.DisplayMode.AspectRatio,
+                                                                        1.0f,
+                                                                        100.0f);
+        }
+
+        private void LoadContent()
+        {
             this.Texture = TextureStorage.Instance.Get(TextureType.World);
-            this.Player.Texture = TextureStorage.Instance.Get(TextureType.Player);
+
+            this.Player.LoadContent();
+            this.PolygonWrapper.LoadContent();
         }
 
         public override void Initialize()
         {
+            
         }
     }
 }
