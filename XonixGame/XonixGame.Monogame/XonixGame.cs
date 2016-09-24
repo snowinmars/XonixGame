@@ -58,8 +58,8 @@ namespace XonixGame.Monogame
             rasterizerState.CullMode = CullMode.None;
             this.GraphicsDevice.RasterizerState = rasterizerState;
 
-            var player = new Player(100, 100);
-            this.world = new GameWorld(player, Config.WorldSize);
+            Player player = new Player(0, 0);
+            this.world = new GameWorld(player);
             this.world.Initialize();
 
             base.Initialize();

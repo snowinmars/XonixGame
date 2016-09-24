@@ -10,7 +10,7 @@ namespace XonixGame.Entities
 {
     public class GameWorld : World
     {
-        public GameWorld(Player player, Position size) : base()
+        public GameWorld(Player player) : base()
         {
             this.Player = player;
             this.PolygonWrapper = new PolygonWrapper();
@@ -25,8 +25,8 @@ namespace XonixGame.Entities
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(this.Texture, Vector2.Zero);
-            this.Player.Draw(spriteBatch);
             this.PolygonWrapper.Draw(spriteBatch);
+            this.Player.Draw(spriteBatch);
         }
 
         public override void Update()

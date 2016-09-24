@@ -42,7 +42,7 @@ namespace XonixGame.ContentMemoryStorageNamespace
                                             Config.WorldSize.Y,
                                             Color.Aqua,
                                             borderThick: 2,
-                                            borderColor: Color.Black)
+                                            borderColor: Color.Blue)
                 },
             };
         }

@@ -31,21 +31,28 @@ namespace XonixGame.Entities
 
         public PolygonWrapper()
         {
-            this.State = PolygonWrapperState.None;
-
-            IList<PolygonPoint> points = new List<PolygonPoint>
+            IList<PolygonPoint> bound = new List<PolygonPoint>
             {
                 new PolygonPoint(0,0),
-                new PolygonPoint(5,5),
-                new PolygonPoint(Config.WorldSize.X, 0),
-                new PolygonPoint(Config.WorldSize.X - 5, 5),
                 new PolygonPoint(0, Config.WorldSize.Y),
-                new PolygonPoint(5, Config.WorldSize.Y - 5),
                 new PolygonPoint(Config.WorldSize.X, Config.WorldSize.Y),
+                new PolygonPoint(Config.WorldSize.X, 0),
+                
+            };
+
+            IList<PolygonPoint> hole = new List<PolygonPoint>
+            {
+                new PolygonPoint(5, 5),
+                new PolygonPoint(Config.WorldSize.X - 5, 5),
+                new PolygonPoint(5, Config.WorldSize.Y - 5),
                 new PolygonPoint(Config.WorldSize.X - 5, Config.WorldSize.Y - 5),
             };
 
-            this.polygon = new Polygon(points);
+            this.polygon = new Polygon(bound);
+
+            this.polygon.AddHole(new Polygon(hole));
+
+            this.State = PolygonWrapperState.RecordFinished;
         }
 
         public void LoadContent(GraphicsDevice graphicsDevice)
@@ -62,24 +69,23 @@ namespace XonixGame.Entities
             case PolygonWrapperState.RecordFinished:
             case PolygonWrapperState.TesselationStarted:
                 {
-                    VertexPosition[] a = this.polygon.Points.Select(p => new VertexPosition(new Vector3((float)p.X, (float)p.Y, 0))).ToArray();
-                    spriteBatch.GraphicsDevice.DrawUserPrimitives<VertexPosition>(PrimitiveType.LineStrip, a, 0, a.Length / 3);
-                    break;
+                    VertexPositionColor[] a = this.polygon.Points.Select(p => new VertexPositionColor(new Vector3((float)p.X, (float)p.Y, 0), Color.Black)).ToArray();
+                    spriteBatch.GraphicsDevice.DrawUserPrimitives<VertexPositionColor>(PrimitiveType.LineStrip, a, 0, a.Length -1);
+                    goto case PolygonWrapperState.None;
                 }
             case PolygonWrapperState.TesselationFinished:
                 {
                     this.State = PolygonWrapperState.TextureGeneraingStarted;
                     goto case PolygonWrapperState.TextureGeneraingStarted;
-                    break;
                 }
             case PolygonWrapperState.TextureGeneraingStarted:
                 {
                     spriteBatch.GraphicsDevice.SetRenderTarget(this.renderTarget2D);
+                    spriteBatch.GraphicsDevice.Clear(Color.TransparentBlack);
                     RenderPolygon(spriteBatch);
                     spriteBatch.GraphicsDevice.SetRenderTarget(null);
                     this.State = PolygonWrapperState.RecordFinished;
                     goto case PolygonWrapperState.TextureGeneraingFinished;
-                    break;
                 }
             case PolygonWrapperState.None:
             case PolygonWrapperState.TextureGeneraingFinished:
@@ -111,7 +117,7 @@ namespace XonixGame.Entities
                 }
             }
 
-            spriteBatch.GraphicsDevice.DrawUserPrimitives<VertexPosition>(PrimitiveType.LineStrip, asd, 0, asd.Length);
+            spriteBatch.GraphicsDevice.DrawUserPrimitives<VertexPosition>(PrimitiveType.LineStrip, asd, 0, asd.Length - 1);
         }
 
         private Position previousPosition;
@@ -144,13 +150,13 @@ namespace XonixGame.Entities
             case PolygonWrapperState.RecordFinished:
                 {
                     this.State = PolygonWrapperState.TesselationStarted;
-                    this.polygon.Simplify();
+                    //this.polygon.Simplify();
                     goto case PolygonWrapperState.TesselationStarted;
                 }
             case PolygonWrapperState.TesselationStarted:
                 {
                     this.State = PolygonWrapperState.TesselationFinished;
-                    P2T.Triangulate(this.polygon);
+                    P2T.Triangulate(TriangulationAlgorithm.DTSweep, this.polygon);
                     goto case PolygonWrapperState.TesselationFinished;
                 }
             case PolygonWrapperState.TesselationFinished:
