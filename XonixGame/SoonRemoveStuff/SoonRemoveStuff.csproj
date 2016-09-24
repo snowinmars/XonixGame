@@ -41,6 +41,9 @@
       <HintPath>..\packages\SandS.Algorithm.Library.Bitwise.2.0.1.01\lib\SandS.Algorithm.Library.Bitwise.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="SandS.Algorithm.Library.Other">
+      <HintPath>..\XonixGame.Configuration\bin\Debug\SandS.Algorithm.Library.Other.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -52,7 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GenericCommand.cs" />
-    <Compile Include="GraphicsDeviceExtensions.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

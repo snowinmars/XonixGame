@@ -1,9 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
+using SandS.Algorithm.Library.EnumsNamespace;
+using SandS.Algorithm.Library.PositionNamespace;
 using System;
 
 namespace SoonRemoveStuff
 {
-    public static class B
+    public static class Extensions
     {
         public static Color NextColor(this Random random)
         {
