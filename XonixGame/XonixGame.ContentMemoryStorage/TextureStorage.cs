@@ -40,7 +40,7 @@ namespace XonixGame.ContentMemoryStorageNamespace
                     TextureType.World,
                     graphicsDevice.Generate(Config.WorldSize.X,
                                             Config.WorldSize.Y,
-                                            Color.Aqua,
+                                            new Color(20,20,20),
                                             borderThick: 2,
                                             borderColor: Color.Blue)
                 },

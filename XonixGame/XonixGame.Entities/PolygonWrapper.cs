@@ -1,7 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Poly2Tri;
+using SandS.Algorithm.CommonNamespace;
 using SandS.Algorithm.Library.PositionNamespace;
+using SoonRemoveStuff;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,7 +38,7 @@ namespace XonixGame.Entities
                 new PolygonPoint(Config.WorldSize.X, 0),
             };
 
-            const int offset = 20;
+            const int offset = 60;
             IList<PolygonPoint> hole = new List<PolygonPoint>
             {
                 new PolygonPoint(offset, offset),
@@ -71,7 +73,7 @@ namespace XonixGame.Entities
                                                                                                                     0),
                                                                                                         Color.Black))
                                                                 .ToArray();
-                        spriteBatch.GraphicsDevice.DrawUserPrimitives(PrimitiveType.LineStrip, vertexes, 0, vertexes.Length - 1);
+                        spriteBatch.GraphicsDevice.DrawUserPrimitives(PrimitiveType.TriangleList, vertexes, 0, vertexes.Length / 3);
                         goto case PolygonWrapperState.None;
                     }
                 case PolygonWrapperState.TesselationFinished:
@@ -101,7 +103,7 @@ namespace XonixGame.Entities
         public void LoadContent(GraphicsDevice graphicsDevice)
         {
             this.dotTexture = TextureStorage.Get(TextureType.Default);
-            this.renderTarget2D = new RenderTarget2D(graphicsDevice, Config.WorldSize.X, Config.WorldSize.Y);
+            this.renderTarget2D = new RenderTarget2D(graphicsDevice, graphicsDevice.Viewport.Width, graphicsDevice.Viewport.Height);
         }
 
         public void Update(Position pos)
@@ -159,20 +161,20 @@ namespace XonixGame.Entities
             }
         }
 
-        private VertexPosition[] MapTrianglesDotsToVertex()
+        private VertexPositionColor[] MapTrianglesDotsToVertex()
         {
-            VertexPosition[] vertexes = new VertexPosition[this.polygon.Triangles.Count * 3];
+            VertexPositionColor[] vertexes = new VertexPositionColor[this.polygon.Triangles.Count * 3];
 
             for (int trianglesCount = 0;
                     trianglesCount < this.polygon.Triangles.Count;
                     trianglesCount++)
             {
                 for (int pointCount = 0;
-                    pointCount < 3; // 3 is 3 points in triangle
-                    pointCount++)
+                        pointCount < 3; // 3 is 3 points in triangle
+                        pointCount++)
                 {
                     TriangulationPoint point = this.polygon.Triangles[trianglesCount].Points[pointCount];
-                    vertexes[trianglesCount * 3 + pointCount] = new VertexPosition(new Vector3((float)point.X, (float)point.Y, 0));
+                    vertexes[trianglesCount * 3 + pointCount] = new VertexPositionColor(new Vector3(-(float)(point.X), -(float)(point.Y), 0), CommonValues.Random.NextColor());
                 }
             }
 
@@ -181,9 +183,9 @@ namespace XonixGame.Entities
 
         private void RenderPolygon(SpriteBatch spriteBatch)
         {
-            VertexPosition[] vertexes = this.MapTrianglesDotsToVertex();
+            VertexPositionColor[] vertexes = this.MapTrianglesDotsToVertex();
 
-            spriteBatch.GraphicsDevice.DrawUserPrimitives(PrimitiveType.LineStrip, vertexes, 0, vertexes.Length - 1);
+            spriteBatch.GraphicsDevice.DrawUserPrimitives(PrimitiveType.TriangleList, vertexes, 0, vertexes.Length /3 );
         }
 
         private void RenderTrianglesToRenderTarget(SpriteBatch spriteBatch)
