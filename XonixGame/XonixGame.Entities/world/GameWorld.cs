@@ -10,7 +10,7 @@ namespace XonixGame.Entities
 {
     public class GameWorld : World
     {
-        public GameWorld(Player player, Position size) : base()
+        public GameWorld(Player player) : base()
         {
             this.Player = player;
             this.PolygonWrapper = new PolygonWrapper();
@@ -25,14 +25,14 @@ namespace XonixGame.Entities
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(this.Texture, Vector2.Zero);
-            this.Player.Draw(spriteBatch);
             this.PolygonWrapper.Draw(spriteBatch);
+            this.Player.Draw(spriteBatch);
         }
 
         public override void Update()
         {
             this.Player.Update();
-            this.PolygonWrapper.Update();
+            this.PolygonWrapper.Update(this.Player.Position);
         }
 
         private Matrix WorldMatrix { get; set; }
@@ -42,7 +42,7 @@ namespace XonixGame.Entities
 
         public override void LoadContent(ContentManager contentManager, GraphicsDevice graphicsDevice)
         {
-            this.LoadContent();
+            this.LoadContent(graphicsDevice);
 
             this.LoadMatrixes(graphicsDevice);
 
@@ -74,12 +74,12 @@ namespace XonixGame.Entities
                                                                         100.0f);
         }
 
-        private void LoadContent()
+        private void LoadContent(GraphicsDevice graphicsDevice)
         {
             this.Texture = TextureStorage.Get(TextureType.World);
 
             this.Player.LoadContent();
-            this.PolygonWrapper.LoadContent();
+            this.PolygonWrapper.LoadContent(graphicsDevice);
         }
 
         public override void Initialize()
