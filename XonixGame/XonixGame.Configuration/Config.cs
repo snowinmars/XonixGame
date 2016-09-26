@@ -18,7 +18,7 @@ namespace XonixGame.Configuration
         public static int AreaAccuracyCalculation
             => (Config.WorldSize.X * Config.WorldSize.Y) / 50;
 
-        public static Position WorldSize { get; set; } = new Position(200, 200);
+        public static Position WorldSize { get; set; } = new Position(300, 200);
         public static Position PlayerSize { get; set; } = new Position(10, 10);
         public static int MaxSpeedX { get; set; } = 1;
         public static int MaxSpeedY { get; set; } = 1;
