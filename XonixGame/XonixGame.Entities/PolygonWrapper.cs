@@ -52,9 +52,9 @@ namespace XonixGame.Entities
         }
 
         public PolygonWrapperState State { get; private set; }
-        private Texture2D dotTexture { get; set; }
-        private Polygon polygon { get; set; }
-        private RenderTarget2D renderTarget2D { get; set; }
+        private Texture2D dotTexture;
+        private Polygon polygon;
+        private RenderTarget2D renderTarget2D;
 
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -64,8 +64,14 @@ namespace XonixGame.Entities
                 case PolygonWrapperState.RecordFinished:
                 case PolygonWrapperState.TesselationStarted:
                     {
-                        VertexPositionColor[] a = this.polygon.Points.Select(p => new VertexPositionColor(new Vector3((float)p.X, (float)p.Y, 0), Color.Black)).ToArray();
-                        spriteBatch.GraphicsDevice.DrawUserPrimitives<VertexPositionColor>(PrimitiveType.LineStrip, a, 0, a.Length - 1);
+                        VertexPositionColor[] vertexes = this.polygon
+                                                                .Points
+                                                                .Select(p => new VertexPositionColor(new Vector3((float)p.X,
+                                                                                                                    (float)p.Y,
+                                                                                                                    0),
+                                                                                                        Color.Black))
+                                                                .ToArray();
+                        spriteBatch.GraphicsDevice.DrawUserPrimitives(PrimitiveType.LineStrip, vertexes, 0, vertexes.Length - 1);
                         goto case PolygonWrapperState.None;
                     }
                 case PolygonWrapperState.TesselationFinished:
