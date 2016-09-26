@@ -36,17 +36,17 @@ namespace XonixGame.Entities
                 new PolygonPoint(Config.WorldSize.X, 0),
             };
 
+            const int offset = 20;
             IList<PolygonPoint> hole = new List<PolygonPoint>
             {
-                new PolygonPoint(5, 5),
-                new PolygonPoint(Config.WorldSize.X - 5, 5),
-                new PolygonPoint(5, Config.WorldSize.Y - 5),
-                new PolygonPoint(Config.WorldSize.X - 5, Config.WorldSize.Y - 5),
+                new PolygonPoint(offset, offset),
+                new PolygonPoint(Config.WorldSize.X - offset, offset),
+                new PolygonPoint(offset, Config.WorldSize.Y - offset),
+                new PolygonPoint(Config.WorldSize.X - offset, Config.WorldSize.Y - offset),
             };
 
             this.polygon = new Polygon(bound);
-
-            //this.polygon.AddHole(new Polygon(hole));
+            this.polygon.AddHole(new Polygon(hole));
 
             this.State = PolygonWrapperState.RecordFinished;
         }
