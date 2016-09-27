@@ -15,7 +15,7 @@ namespace XonixGame.Configuration
             {Keys.Right, Commands.MoveRight},
         };
 
-        public static Position WorldSize { get; set; } = new Position(300, 200);
+        public static Position WorldSize { get; set; } = new Position(5, 2);
         public static Position PlayerSize { get; set; } = new Position(10, 10);
         public static int MaxSpeedX { get; set; } = 1;
         public static int MaxSpeedY { get; set; } = 1;

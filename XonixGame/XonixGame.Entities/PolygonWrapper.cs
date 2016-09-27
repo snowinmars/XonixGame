@@ -30,21 +30,24 @@ namespace XonixGame.Entities
 
         public PolygonWrapper()
         {
+            int x = Config.WorldSize.X / 2;
+            int y = Config.WorldSize.Y / 2;
+
             IList<PolygonPoint> bound = new List<PolygonPoint>
             {
-                new PolygonPoint(0,0),
-                new PolygonPoint(0, Config.WorldSize.Y),
-                new PolygonPoint(Config.WorldSize.X, Config.WorldSize.Y),
-                new PolygonPoint(Config.WorldSize.X, 0),
+                new PolygonPoint(-x, -y),
+                new PolygonPoint(-x, y),
+                new PolygonPoint(x,y),
+                new PolygonPoint(x,-y),
             };
 
-            const int offset = 60;
+            const double offset = 0.1;
             IList<PolygonPoint> hole = new List<PolygonPoint>
             {
-                new PolygonPoint(offset, offset),
-                new PolygonPoint(Config.WorldSize.X - offset, offset),
-                new PolygonPoint(offset, Config.WorldSize.Y - offset),
-                new PolygonPoint(Config.WorldSize.X - offset, Config.WorldSize.Y - offset),
+                new PolygonPoint(-x + offset, -y + offset),
+                new PolygonPoint(x - offset, -y + offset),
+                new PolygonPoint(-x + offset, y - offset),
+                new PolygonPoint(x - offset, y - offset),
             };
 
             this.polygon = new Polygon(bound);
