@@ -24,9 +24,17 @@ namespace XonixGame.Entities
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(this.Texture, Vector2.Zero);
-            this.PolygonWrapper.Draw(spriteBatch);
-            this.Player.Draw(spriteBatch);
+            foreach (var pass in this.BasicEffect.CurrentTechnique.Passes)
+            {
+                pass.Apply();
+
+                spriteBatch.Draw(this.Texture, 
+                    position: Vector2.Zero, 
+                    origin: new Vector2(-spriteBatch.GraphicsDevice.Viewport.Width/ 2,
+                                        -spriteBatch.GraphicsDevice.Viewport.Height / 2));
+                this.PolygonWrapper.Draw(spriteBatch);
+                this.Player.Draw(spriteBatch);
+            }
         }
 
         public override void Update()
@@ -61,12 +69,12 @@ namespace XonixGame.Entities
                 VertexColorEnabled = true
             };
 
-            this.BasicEffect.CurrentTechnique.Passes.First().Apply(); // I suppose, that I will not have any other effects.
+            //this.BasicEffect.CurrentTechnique.Passes.First().Apply(); // I suppose, that I will not have any other effects.
         }
 
         private void LoadMatrixes(GraphicsDevice graphicsDevice)
         {
-            this.WorldMatrix = Matrix.Identity;
+            this.WorldMatrix = Matrix.CreateWorld(new Vector3(0f, 0f, 0f), new Vector3(0, 0, -1), Vector3.Up); ;
             this.ViewMatrix = Matrix.CreateLookAt(new Vector3(0, 0, -3), Vector3.Zero, Vector3.Up);
             this.ProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4,
                                                                         graphicsDevice.DisplayMode.AspectRatio,
