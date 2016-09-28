@@ -68,13 +68,12 @@ namespace XonixGame.Entities
                 Projection = this.ProjectionMatrix,
                 VertexColorEnabled = true
             };
-
-            //this.BasicEffect.CurrentTechnique.Passes.First().Apply(); // I suppose, that I will not have any other effects.
         }
 
         private void LoadMatrixes(GraphicsDevice graphicsDevice)
         {
-            this.WorldMatrix = Matrix.CreateWorld(new Vector3(0f, 0f, 0f), new Vector3(0, 0, -1), Vector3.Up); ;
+            this.WorldMatrix = Matrix.CreateWorld(new Vector3(0f, 0f, 0f), new Vector3(0, 0, -1), Vector3.Up);
+            ;
             this.ViewMatrix = Matrix.CreateLookAt(new Vector3(0, 0, -3), Vector3.Zero, Vector3.Up);
             this.ProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4,
                                                                         graphicsDevice.DisplayMode.AspectRatio,

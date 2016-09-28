@@ -42,16 +42,17 @@ namespace XonixGame.Entities
             };
 
             const double offset = 0.1;
-            IList<PolygonPoint> hole = new List<PolygonPoint>
+            IList<PolygonPoint> holebound = new List<PolygonPoint>
             {
                 new PolygonPoint(-x + offset, -y + offset),
-                new PolygonPoint(x - offset, -y + offset),
                 new PolygonPoint(-x + offset, y - offset),
                 new PolygonPoint(x - offset, y - offset),
+                new PolygonPoint(x - offset, -y + offset),
             };
 
             this.polygon = new Polygon(bound);
-            this.polygon.AddHole(new Polygon(hole));
+            this.hole = new Polygon(holebound);
+            this.polygon.AddHole(this.hole);
 
             this.State = PolygonWrapperState.RecordFinished;
         }
@@ -59,6 +60,7 @@ namespace XonixGame.Entities
         public PolygonWrapperState State { get; private set; }
         private Texture2D dotTexture;
         private Polygon polygon;
+        private Polygon hole;
         private RenderTarget2D renderTarget2D;
 
         public void Draw(SpriteBatch spriteBatch)
@@ -137,13 +139,13 @@ namespace XonixGame.Entities
                 case PolygonWrapperState.RecordFinished:
                     {
                         this.State = PolygonWrapperState.TesselationStarted;
-                        //this.polygon.Simplify();
                         goto case PolygonWrapperState.TesselationStarted;
                     }
                 case PolygonWrapperState.TesselationStarted:
                     {
                         this.State = PolygonWrapperState.TesselationFinished;
-                        P2T.Triangulate(TriangulationAlgorithm.DTSweep, this.polygon);
+                        P2T.Triangulate(this.polygon);
+                        P2T.Triangulate(this.hole);
                         goto case PolygonWrapperState.TesselationFinished;
                     }
                 case PolygonWrapperState.TesselationFinished:
