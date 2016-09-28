@@ -1,8 +1,11 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using SandS.Algorithm.Library.PositionNamespace;
 using System.Linq;
+using Poly2Tri;
+using XonixGame.Configuration;
 using XonixGame.ContentMemoryStorageNamespace;
 using XonixGame.Enums;
 
@@ -13,14 +16,62 @@ namespace XonixGame.Entities
         public GameWorld(Player player) : base()
         {
             this.Player = player;
-            this.PolygonWrapper = new PolygonWrapper();
+
+            this.BoundaryPolygon = this.InitBoundaries();
+            this.FieldPolygon = this.InitField();
         }
 
-        private PolygonWrapper PolygonWrapper { get; set; }
+        private PolygonWrapper InitField()
+        {
+            int x = Config.WorldSize.X / 2;
+            int y = Config.WorldSize.Y / 2;
+
+            IList<PolygonPoint> field = new List<PolygonPoint>
+            {
+                new PolygonPoint(-x, -y),
+                new PolygonPoint(-x, y),
+                new PolygonPoint(x,y),
+                new PolygonPoint(x,-y),
+            };
+
+            Polygon fieldPolygon = new Polygon(field);
+
+            return new PolygonWrapper(fieldPolygon, null);
+        }
+
+        private PolygonWrapper InitBoundaries()
+        {
+            int x = Config.WorldSize.X / 2;
+            int y = Config.WorldSize.Y / 2;
+
+            IList<PolygonPoint> boundary = new List<PolygonPoint>
+            {
+                new PolygonPoint(-x, -y),
+                new PolygonPoint(-x, y),
+                new PolygonPoint(x,y),
+                new PolygonPoint(x,-y),
+            };
+
+            const double offset = 0.1;
+
+            IList<PolygonPoint> boundaryHole = new List<PolygonPoint>
+            {
+                new PolygonPoint(-x + offset, -y + offset),
+                new PolygonPoint(-x + offset, y - offset),
+                new PolygonPoint(x - offset, y - offset),
+                new PolygonPoint(x - offset, -y + offset),
+            };
+
+            Polygon boundaryPolygon = new Polygon(boundary);
+            Polygon boundaryHolePolygon = new Polygon(boundaryHole);
+
+            return new PolygonWrapper(boundaryPolygon, new[] { boundaryHolePolygon });
+        }
+
+        private PolygonWrapper BoundaryPolygon { get; set; }
+        private PolygonWrapper FieldPolygon { get; set; }
 
         public Player Player { get; private set; }
-
-        public Texture2D Texture { get; private set; }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
@@ -28,11 +79,8 @@ namespace XonixGame.Entities
             {
                 pass.Apply();
 
-                spriteBatch.Draw(this.Texture, 
-                    position: Vector2.Zero, 
-                    origin: new Vector2(-spriteBatch.GraphicsDevice.Viewport.Width/ 2,
-                                        -spriteBatch.GraphicsDevice.Viewport.Height / 2));
-                this.PolygonWrapper.Draw(spriteBatch);
+                this.FieldPolygon.Draw(spriteBatch);
+                this.BoundaryPolygon.Draw(spriteBatch);
                 this.Player.Draw(spriteBatch);
             }
         }
@@ -40,7 +88,8 @@ namespace XonixGame.Entities
         public override void Update()
         {
             this.Player.Update();
-            this.PolygonWrapper.Update(this.Player.Position);
+            this.FieldPolygon.Update(this.Player.Position);
+            this.BoundaryPolygon.Update(this.Player.Position);
         }
 
         private Matrix WorldMatrix { get; set; }
@@ -66,15 +115,14 @@ namespace XonixGame.Entities
                 World = this.WorldMatrix,
                 View = this.ViewMatrix,
                 Projection = this.ProjectionMatrix,
-                VertexColorEnabled = true
+                VertexColorEnabled = true,
             };
         }
 
         private void LoadMatrixes(GraphicsDevice graphicsDevice)
         {
             this.WorldMatrix = Matrix.CreateWorld(new Vector3(0f, 0f, 0f), new Vector3(0, 0, -1), Vector3.Up);
-            ;
-            this.ViewMatrix = Matrix.CreateLookAt(new Vector3(0, 0, -3), Vector3.Zero, Vector3.Up);
+            this.ViewMatrix = Matrix.CreateLookAt(new Vector3(0, 0, 3), Vector3.Zero, Vector3.Up);
             this.ProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4,
                                                                         graphicsDevice.DisplayMode.AspectRatio,
                                                                         1.0f,
@@ -83,10 +131,9 @@ namespace XonixGame.Entities
 
         private void LoadContent(GraphicsDevice graphicsDevice)
         {
-            this.Texture = TextureStorage.Get(TextureType.World);
-
             this.Player.LoadContent();
-            this.PolygonWrapper.LoadContent(graphicsDevice);
+            this.FieldPolygon.LoadContent(graphicsDevice);
+            this.BoundaryPolygon.LoadContent(graphicsDevice);
         }
 
         public override void Initialize()

@@ -28,39 +28,24 @@ namespace XonixGame.Entities
     {
         private Position previousPosition;
 
-        public PolygonWrapper()
+        public PolygonWrapper(Polygon p, IList<Polygon> holes)
         {
-            int x = Config.WorldSize.X / 2;
-            int y = Config.WorldSize.Y / 2;
-
-            IList<PolygonPoint> bound = new List<PolygonPoint>
-            {
-                new PolygonPoint(-x, -y),
-                new PolygonPoint(-x, y),
-                new PolygonPoint(x,y),
-                new PolygonPoint(x,-y),
-            };
-
-            const double offset = 0.1;
-            IList<PolygonPoint> holebound = new List<PolygonPoint>
-            {
-                new PolygonPoint(-x + offset, -y + offset),
-                new PolygonPoint(-x + offset, y - offset),
-                new PolygonPoint(x - offset, y - offset),
-                new PolygonPoint(x - offset, -y + offset),
-            };
-
-            this.polygon = new Polygon(bound);
-            this.hole = new Polygon(holebound);
-            this.polygon.AddHole(this.hole);
-
             this.State = PolygonWrapperState.RecordFinished;
+            this.polygon = p;
+
+            if (holes == null)
+            {
+                return;
+            }
+
+            foreach (var hole in holes)
+            {
+                this.polygon.AddHole(hole);
+            }
         }
 
         public PolygonWrapperState State { get; private set; }
-        private Texture2D dotTexture;
         private Polygon polygon;
-        private Polygon hole;
         private RenderTarget2D renderTarget2D;
 
         public void Draw(SpriteBatch spriteBatch)
@@ -76,7 +61,7 @@ namespace XonixGame.Entities
                                                                 .Select(p => new VertexPositionColor(new Vector3((float)p.X,
                                                                                                                     (float)p.Y,
                                                                                                                     0),
-                                                                                                        Color.Black))
+                                                                                                        Color.White))
                                                                 .ToArray();
                         spriteBatch.GraphicsDevice.DrawUserPrimitives(PrimitiveType.TriangleList, vertexes, 0, vertexes.Length / 3);
                         goto case PolygonWrapperState.None;
@@ -89,7 +74,7 @@ namespace XonixGame.Entities
                 case PolygonWrapperState.TextureGeneraingStarted:
                     {
                         this.RenderTrianglesToRenderTarget(spriteBatch);
-                        this.State = PolygonWrapperState.RecordFinished;
+                        this.State = PolygonWrapperState.TextureGeneraingFinished;
                         goto case PolygonWrapperState.TextureGeneraingFinished;
                     }
                 case PolygonWrapperState.None:
@@ -107,7 +92,7 @@ namespace XonixGame.Entities
 
         public void LoadContent(GraphicsDevice graphicsDevice)
         {
-            this.dotTexture = TextureStorage.Get(TextureType.Default);
+            //this.dotTexture = TextureStorage.Get(TextureType.Default);
             this.renderTarget2D = new RenderTarget2D(graphicsDevice, graphicsDevice.Viewport.Width, graphicsDevice.Viewport.Height);
         }
 
@@ -145,7 +130,6 @@ namespace XonixGame.Entities
                     {
                         this.State = PolygonWrapperState.TesselationFinished;
                         P2T.Triangulate(this.polygon);
-                        P2T.Triangulate(this.hole);
                         goto case PolygonWrapperState.TesselationFinished;
                     }
                 case PolygonWrapperState.TesselationFinished:
@@ -179,7 +163,7 @@ namespace XonixGame.Entities
                         pointCount++)
                 {
                     TriangulationPoint point = this.polygon.Triangles[trianglesCount].Points[pointCount];
-                    vertexes[trianglesCount * 3 + pointCount] = new VertexPositionColor(new Vector3(-(float)(point.X), -(float)(point.Y), 0), CommonValues.Random.NextColor());
+                    vertexes[trianglesCount * 3 + pointCount] = new VertexPositionColor(new Vector3(-(float)(point.X), -(float)(point.Y), 0), Color.White);
                 }
             }
 

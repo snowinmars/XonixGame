@@ -38,8 +38,8 @@ namespace XonixGame.ContentMemoryStorageNamespace
                 },
                 {
                     TextureType.World,
-                    graphicsDevice.Generate(Config.WorldSize.X,
-                                            Config.WorldSize.Y,
+                    graphicsDevice.Generate(Config.WorldSize.X * 100,
+                                            Config.WorldSize.Y * 100,
                                             new Color(20,20,20),
                                             borderThick: 2,
                                             borderColor: Color.Blue)
