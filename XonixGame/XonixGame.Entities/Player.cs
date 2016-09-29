@@ -12,17 +12,17 @@ namespace XonixGame.Entities
 {
     public class Player : AbstractItem
     {
-        public Player(int x, int y) : this(new Position(x, y))
+        public Player(int x, int y) : this(new PositionVector(x, y))
         {
         }
 
-        public Player(Position position)
+        public Player(PositionVector position)
         {
             this.Position = position;
 
             this.PlayerFlyweight = PlayerFlyweight.Instance;
 
-            this.ActualSpeed = new Position();
+            this.ActualSpeed = new PositionVector();
 
             this.KeyboardInputHelper.InputKeyPressType = InputKeyPressType.OnDown;
             this.MovementType = MovementType.PressAndHold;
@@ -30,9 +30,9 @@ namespace XonixGame.Entities
 
         public MovementType MovementType { get; set; }
 
-        public Position Position { get; private set; }
+        public PositionVector Position { get; private set; }
 
-        private Position ActualSpeed { get; set; }
+        private PositionVector ActualSpeed { get; set; }
 
         private PlayerFlyweight PlayerFlyweight { get; }
 
@@ -56,7 +56,8 @@ namespace XonixGame.Entities
 
         private void Move()
         {
-            this.Position += this.ActualSpeed;
+            this.Position.X += this.ActualSpeed.X;
+            this.Position.Y += this.ActualSpeed.Y;
         }
 
         private void ReadInput()

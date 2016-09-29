@@ -11,13 +11,13 @@ namespace XonixGame.Entities
 
         protected PlayerFlyweight()
         {
-            Position wait = new Position(0, 0);
-            Position up = new Position(0, -Config.DefaultHeadSpeed.Y);
-            Position down = new Position(0, Config.DefaultHeadSpeed.Y);
-            Position left = new Position(-Config.DefaultHeadSpeed.X, 0);
-            Position right = new Position(Config.DefaultHeadSpeed.X, 0);
+            PositionVector wait = new PositionVector(0, 0);
+            PositionVector up = new PositionVector(0, -Config.DefaultHeadSpeed.Y);
+            PositionVector down = new PositionVector(0, Config.DefaultHeadSpeed.Y);
+            PositionVector left = new PositionVector(-Config.DefaultHeadSpeed.X, 0);
+            PositionVector right = new PositionVector(Config.DefaultHeadSpeed.X, 0);
 
-            this.CommandDirectionBinder = new Dictionary<Commands, Position>
+            this.CommandDirectionBinder = new Dictionary<Commands, PositionVector>
             {
                 {Commands.Wait, wait},
                 {Commands.MoveDown, down },
@@ -31,6 +31,6 @@ namespace XonixGame.Entities
 
         #endregion Singleton
 
-        public IDictionary<Commands, Position> CommandDirectionBinder { get; private set; }
+        public IDictionary<Commands, PositionVector> CommandDirectionBinder { get; private set; }
     }
 }

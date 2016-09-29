@@ -21,7 +21,7 @@ namespace XonixGame.Entities
 
     internal class PolygonWrapper
     {
-        private Position previousPosition;
+        private PositionVector previousPosition;
 
         public PolygonWrapper(Polygon p, IList<Polygon> holes)
         {
@@ -91,7 +91,7 @@ namespace XonixGame.Entities
             this.renderTarget2D = new RenderTarget2D(graphicsDevice, graphicsDevice.Viewport.Width, graphicsDevice.Viewport.Height);
         }
 
-        public void Update(Position pos)
+        public void Update(PositionVector pos)
         {
             if (object.ReferenceEquals(this.previousPosition, null))
             {

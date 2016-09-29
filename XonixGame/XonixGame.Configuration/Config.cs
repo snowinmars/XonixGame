@@ -23,6 +23,6 @@ namespace XonixGame.Configuration
         /// <summary>
         /// Speed in pixels per tick
         /// </summary>
-        public static Position DefaultHeadSpeed { get; }= new Position(7, 7); // px
+        public static PositionVector DefaultHeadSpeed { get; }= new PositionVector(0.05f, 0.05f);
     }
 }
