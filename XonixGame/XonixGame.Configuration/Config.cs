@@ -17,13 +17,12 @@ namespace XonixGame.Configuration
 
         public static Position WorldSize { get; set; } = new Position(5, 2);
         public static Position PlayerSize { get; set; } = new Position(10, 10);
-        public static int MaxSpeedX { get; set; } = 1;
-        public static int MaxSpeedY { get; set; } = 1;
-        public static Position PositionEpsilon { get; set; } = new Position(4, 4);
+        public static int MaxSpeedX { get; set; } = 7;
+        public static int MaxSpeedY { get; set; } = 7;
 
         /// <summary>
         /// Speed in pixels per tick
         /// </summary>
-        public static Position DefaultHeadSpeed = new Position(1, 1); // px
+        public static Position DefaultHeadSpeed { get; }= new Position(7, 7); // px
     }
 }

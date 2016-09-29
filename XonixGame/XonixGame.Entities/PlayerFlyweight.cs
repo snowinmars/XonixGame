@@ -1,6 +1,7 @@
 ﻿using SandS.Algorithm.Library.EnumsNamespace;
 using SandS.Algorithm.Library.PositionNamespace;
 using System.Collections.Generic;
+using XonixGame.Configuration;
 
 namespace XonixGame.Entities
 {
@@ -11,10 +12,10 @@ namespace XonixGame.Entities
         protected PlayerFlyweight()
         {
             Position wait = new Position(0, 0);
-            Position up = new Position(0, -1);
-            Position down = new Position(0, 1);
-            Position left = new Position(-1, 0);
-            Position right = new Position(1, 0);
+            Position up = new Position(0, -Config.DefaultHeadSpeed.Y);
+            Position down = new Position(0, Config.DefaultHeadSpeed.Y);
+            Position left = new Position(-Config.DefaultHeadSpeed.X, 0);
+            Position right = new Position(Config.DefaultHeadSpeed.X, 0);
 
             this.CommandDirectionBinder = new Dictionary<Commands, Position>
             {
