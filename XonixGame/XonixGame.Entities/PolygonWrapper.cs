@@ -1,15 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Poly2Tri;
-using SandS.Algorithm.CommonNamespace;
 using SandS.Algorithm.Library.PositionNamespace;
-using SoonRemoveStuff;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using XonixGame.Configuration;
-using XonixGame.ContentMemoryStorageNamespace;
-using XonixGame.Enums;
 
 namespace XonixGame.Entities
 {
@@ -174,7 +169,7 @@ namespace XonixGame.Entities
         {
             VertexPositionColor[] vertexes = this.MapTrianglesDotsToVertex();
 
-            spriteBatch.GraphicsDevice.DrawUserPrimitives(PrimitiveType.TriangleList, vertexes, 0, vertexes.Length /3 );
+            spriteBatch.GraphicsDevice.DrawUserPrimitives(PrimitiveType.TriangleList, vertexes, 0, vertexes.Length / 3);
         }
 
         private void RenderTrianglesToRenderTarget(SpriteBatch spriteBatch)

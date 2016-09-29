@@ -1,8 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using SandS.Algorithm.Library.EnumsNamespace;
-using SandS.Algorithm.Library.PositionNamespace;
 using System;
-using SandS.Algorithm.Library.EnumsNamespace;
 
 namespace SoonRemoveStuff
 {
@@ -15,7 +13,7 @@ namespace SoonRemoveStuff
                                 random.Next(0, 255),
                                 random.Next(0, 255));
         }
- 
+
         public static bool IsOpposed(this Direction lhs, Direction rhs)
         {
             return (lhs == Direction.Left && rhs == Direction.Right) ||

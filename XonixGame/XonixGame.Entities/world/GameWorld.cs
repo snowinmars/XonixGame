@@ -1,13 +1,9 @@
-﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using SandS.Algorithm.Library.PositionNamespace;
-using System.Linq;
 using Poly2Tri;
+using System.Collections.Generic;
 using XonixGame.Configuration;
-using XonixGame.ContentMemoryStorageNamespace;
-using XonixGame.Enums;
 
 namespace XonixGame.Entities
 {

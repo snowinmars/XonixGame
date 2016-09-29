@@ -36,7 +36,6 @@ namespace XonixGame.Entities
 
         private PlayerFlyweight PlayerFlyweight { get; }
 
-
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(TextureStorage.Get(TextureType.Player), this.Position.ToVector2(), Color.Red);
