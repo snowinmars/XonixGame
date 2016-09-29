@@ -20,6 +20,12 @@ namespace XonixGame.Monogame
         {
             this.graphics = new GraphicsDeviceManager(this);
             this.Content.RootDirectory = "Content";
+
+            this.graphics.PreferredBackBufferWidth = 1920;
+            this.graphics.PreferredBackBufferHeight = 1020;
+
+            this.graphics.IsFullScreen = true;
+            this.IsMouseVisible = true;
         }
 
         /// <summary>
