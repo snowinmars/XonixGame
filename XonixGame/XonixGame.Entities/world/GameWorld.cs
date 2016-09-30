@@ -19,8 +19,8 @@ namespace XonixGame.Entities
 
         private PolygonWrapper InitField()
         {
-            int x = Config.WorldSize.X / 2;
-            int y = Config.WorldSize.Y / 2;
+            int x = Config.LeftUpperCorner.X;
+            int y = Config.LeftUpperCorner.Y;
 
             IList<PolygonPoint> field = new List<PolygonPoint>
             {
@@ -37,8 +37,8 @@ namespace XonixGame.Entities
 
         private PolygonWrapper InitBoundaries()
         {
-            int x = Config.WorldSize.X / 2;
-            int y = Config.WorldSize.Y / 2;
+            int x = Config.LeftUpperCorner.X;
+            int y = Config.LeftUpperCorner.Y;
 
             IList<PolygonPoint> boundary = new List<PolygonPoint>
             {
@@ -96,9 +96,7 @@ namespace XonixGame.Entities
         public override void LoadContent(ContentManager contentManager, GraphicsDevice graphicsDevice)
         {
             this.LoadContent(graphicsDevice);
-
             this.LoadMatrixes(graphicsDevice);
-
             this.LoadEffects(graphicsDevice);
 
             graphicsDevice.RasterizerState = RasterizerState.CullNone;

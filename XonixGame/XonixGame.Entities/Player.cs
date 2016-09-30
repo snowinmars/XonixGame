@@ -56,8 +56,7 @@ namespace XonixGame.Entities
 
         private void Move()
         {
-            this.Position.X += this.ActualSpeed.X;
-            this.Position.Y += this.ActualSpeed.Y;
+            this.Position += this.ActualSpeed;
         }
 
         private void ReadInput()

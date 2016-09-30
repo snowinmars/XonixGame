@@ -20,6 +20,14 @@ namespace XonixGame.Configuration
         public static int MaxSpeedX { get; set; } = 7;
         public static int MaxSpeedY { get; set; } = 7;
 
+        public static Position LeftUpperCorner
+        {
+            get
+            {
+                return new Position(Config.WorldSize.X / 2, Config.WorldSize.Y / 2);
+            }
+        }
+
         /// <summary>
         /// Speed in pixels per tick
         /// </summary>
