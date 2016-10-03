@@ -73,17 +73,17 @@ namespace XonixGame.Entities
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            
-                this.FieldPolygon.Draw(spriteBatch);
-                this.BoundaryPolygon.Draw(spriteBatch);
-                this.Player.Draw(spriteBatch);
+            spriteBatch.GraphicsDevice.Clear(Color.Pink);
+            //this.FieldPolygon.Draw(spriteBatch);
+            //this.BoundaryPolygon.Draw(spriteBatch);
+            this.Player.Draw(spriteBatch);
         }
 
         public override void Update()
         {
             this.Player.Update();
-            this.FieldPolygon.Update(this.Player.Position);
-            this.BoundaryPolygon.Update(this.Player.Position);
+            //this.FieldPolygon.Update(this.Player.Position);
+            //this.BoundaryPolygon.Update(this.Player.Position);
         }
 
         

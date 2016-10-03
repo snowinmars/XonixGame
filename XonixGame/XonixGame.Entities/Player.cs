@@ -4,6 +4,8 @@ using Microsoft.Xna.Framework.Input;
 using SandS.Algorithm.Library.EnumsNamespace;
 using SandS.Algorithm.Library.PositionNamespace;
 using System;
+using System.Collections.Generic;
+using Poly2Tri;
 using XonixGame.Configuration;
 using XonixGame.ContentMemoryStorageNamespace;
 using XonixGame.Enums;
@@ -21,6 +23,7 @@ namespace XonixGame.Entities
             this.Position = position;
 
             this.PlayerFlyweight = PlayerFlyweight.Instance;
+            this.BodyWrapper = GetBody();
 
             this.ActualSpeed = new PositionVector();
 
@@ -28,10 +31,26 @@ namespace XonixGame.Entities
             this.MovementType = MovementType.PressAndHold;
         }
 
+        private PolygonWrapper GetBody()
+        {
+            IList<PolygonPoint> bodyPoints = new List<PolygonPoint>
+            {
+                new PolygonPoint(-Config.LeftUpperCorner.X, -Config.LeftUpperCorner.Y),
+                new PolygonPoint(-(Config.LeftUpperCorner.X + Config.PlayerSize.X), -Config.LeftUpperCorner.Y),
+                new PolygonPoint(-(Config.LeftUpperCorner.X + Config.PlayerSize.X), -(Config.LeftUpperCorner.Y + Config.PlayerSize.Y)),
+                new PolygonPoint(-Config.LeftUpperCorner.X, -(Config.LeftUpperCorner.Y + Config.PlayerSize.Y)),
+            };
+
+            Polygon body = new Polygon(bodyPoints);
+
+            return new PolygonWrapper(body, null);
+        }
+
         public MovementType MovementType { get; set; }
         public PositionVector Position { get; private set; }
         private PositionVector ActualSpeed { get; set; }
         private BasicEffect BasicEffect { get; set; }
+        private PolygonWrapper BodyWrapper { get;  }
         private PlayerFlyweight PlayerFlyweight { get; }
         private Matrix ProjectionMatrix { get; set; }
         private Matrix ViewMatrix { get; set; }
@@ -39,18 +58,14 @@ namespace XonixGame.Entities
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            foreach (var pass in this.BasicEffect.CurrentTechnique.Passes)
-            {
-                pass.Apply();
-
-                spriteBatch.Draw(TextureStorage.Get(TextureType.Player), this.Position.ToVector2(), Color.Red);
-            }
+            this.BodyWrapper.Draw(spriteBatch);
         }
 
         public void LoadContent(GraphicsDevice graphicsDevice)
         {
             this.LoadMatrixes(graphicsDevice);
             this.LoadEffects(graphicsDevice);
+            this.BodyWrapper.LoadContent(graphicsDevice);
         }
 
         public override void Update()
@@ -58,6 +73,8 @@ namespace XonixGame.Entities
             this.ReadInput();
             this.SpeedCut();
             this.Move();
+
+            this.BodyWrapper.Update(this.Position);
 
             base.Update();
         }

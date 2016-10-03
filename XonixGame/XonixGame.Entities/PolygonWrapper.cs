@@ -41,7 +41,7 @@ namespace XonixGame.Entities
             }
         }
 
-        public PolygonWrapperState State { get; private set; }
+        public PolygonWrapperState State;
         private BasicEffect BasicEffect { get; set; }
         private Matrix ProjectionMatrix { get; set; }
         private Matrix ViewMatrix { get; set; }
@@ -59,15 +59,15 @@ namespace XonixGame.Entities
                     case PolygonWrapperState.RecordFinished:
                     case PolygonWrapperState.TesselationStarted:
                         {
-                            VertexPositionColor[] vertexes = this.polygon
-                                .Points
-                                .Select(p => new VertexPositionColor(new Vector3((float)p.X,
-                                    (float)p.Y,
-                                    0),
-                                    Color.White))
-                                .ToArray();
-                            spriteBatch.GraphicsDevice.DrawUserPrimitives(PrimitiveType.TriangleList, vertexes, 0,
-                                vertexes.Length / 3);
+                            //VertexPositionColor[] vertexes = this.polygon
+                            //    .Points
+                            //    .Select(p => new VertexPositionColor(new Vector3((float)p.X,
+                            //        (float)p.Y,
+                            //        0),
+                            //        Color.White))
+                            //    .ToArray();
+                            //spriteBatch.GraphicsDevice.DrawUserPrimitives(PrimitiveType.TriangleList, vertexes, 0,
+                            //    vertexes.Length / 3);
                             goto case PolygonWrapperState.None;
                         }
                     case PolygonWrapperState.TesselationFinished:
@@ -84,7 +84,7 @@ namespace XonixGame.Entities
                     case PolygonWrapperState.None:
                     case PolygonWrapperState.TextureGeneraingFinished:
                         {
-                            spriteBatch.Draw(this.renderTarget2D, Vector2.Zero);
+                            spriteBatch.Draw(this.renderTarget2D, this.previousPosition.ToVector2());
                             break;
                         }
                     default:
@@ -125,7 +125,7 @@ namespace XonixGame.Entities
             {
                 case PolygonWrapperState.RecordStarted:
                     {
-                        this.polygon.Add(pos);
+                        //this.polygon.Add(pos);
                         break;
                     }
                 case PolygonWrapperState.RecordFinished:
