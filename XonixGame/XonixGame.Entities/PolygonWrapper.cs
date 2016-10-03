@@ -21,7 +21,9 @@ namespace XonixGame.Entities
 
     internal class PolygonWrapper
     {
+        private Polygon polygon;
         private PositionVector previousPosition;
+        private RenderTarget2D renderTarget2D;
 
         public PolygonWrapper(Polygon p, IList<Polygon> holes)
         {
@@ -40,54 +42,64 @@ namespace XonixGame.Entities
         }
 
         public PolygonWrapperState State { get; private set; }
-        private Polygon polygon;
-        private RenderTarget2D renderTarget2D;
+        private BasicEffect BasicEffect { get; set; }
+        private Matrix ProjectionMatrix { get; set; }
+        private Matrix ViewMatrix { get; set; }
+        private Matrix WorldMatrix { get; set; }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            switch (this.State)
+            foreach (var pass in this.BasicEffect.CurrentTechnique.Passes)
             {
-                case PolygonWrapperState.RecordStarted:
-                case PolygonWrapperState.RecordFinished:
-                case PolygonWrapperState.TesselationStarted:
-                    {
-                        VertexPositionColor[] vertexes = this.polygon
-                                                                .Points
-                                                                .Select(p => new VertexPositionColor(new Vector3((float)p.X,
-                                                                                                                    (float)p.Y,
-                                                                                                                    0),
-                                                                                                        Color.White))
-                                                                .ToArray();
-                        spriteBatch.GraphicsDevice.DrawUserPrimitives(PrimitiveType.TriangleList, vertexes, 0, vertexes.Length / 3);
-                        goto case PolygonWrapperState.None;
-                    }
-                case PolygonWrapperState.TesselationFinished:
-                    {
-                        this.State = PolygonWrapperState.TextureGeneraingStarted;
-                        goto case PolygonWrapperState.TextureGeneraingStarted;
-                    }
-                case PolygonWrapperState.TextureGeneraingStarted:
-                    {
-                        this.RenderTrianglesToRenderTarget(spriteBatch);
-                        this.State = PolygonWrapperState.TextureGeneraingFinished;
-                        goto case PolygonWrapperState.TextureGeneraingFinished;
-                    }
-                case PolygonWrapperState.None:
-                case PolygonWrapperState.TextureGeneraingFinished:
-                    {
-                        spriteBatch.Draw(this.renderTarget2D, Vector2.Zero);
-                        break;
-                    }
-                default:
-                    {
-                        throw new ArgumentOutOfRangeException();
-                    }
+                pass.Apply();
+
+                switch (this.State)
+                {
+                    case PolygonWrapperState.RecordStarted:
+                    case PolygonWrapperState.RecordFinished:
+                    case PolygonWrapperState.TesselationStarted:
+                        {
+                            VertexPositionColor[] vertexes = this.polygon
+                                .Points
+                                .Select(p => new VertexPositionColor(new Vector3((float)p.X,
+                                    (float)p.Y,
+                                    0),
+                                    Color.White))
+                                .ToArray();
+                            spriteBatch.GraphicsDevice.DrawUserPrimitives(PrimitiveType.TriangleList, vertexes, 0,
+                                vertexes.Length / 3);
+                            goto case PolygonWrapperState.None;
+                        }
+                    case PolygonWrapperState.TesselationFinished:
+                        {
+                            this.State = PolygonWrapperState.TextureGeneraingStarted;
+                            goto case PolygonWrapperState.TextureGeneraingStarted;
+                        }
+                    case PolygonWrapperState.TextureGeneraingStarted:
+                        {
+                            this.RenderTrianglesToRenderTarget(spriteBatch);
+                            this.State = PolygonWrapperState.TextureGeneraingFinished;
+                            goto case PolygonWrapperState.TextureGeneraingFinished;
+                        }
+                    case PolygonWrapperState.None:
+                    case PolygonWrapperState.TextureGeneraingFinished:
+                        {
+                            spriteBatch.Draw(this.renderTarget2D, Vector2.Zero);
+                            break;
+                        }
+                    default:
+                        {
+                            throw new ArgumentOutOfRangeException();
+                        }
+                }
             }
         }
 
         public void LoadContent(GraphicsDevice graphicsDevice)
         {
-            //this.dotTexture = TextureStorage.Get(TextureType.Default);
+            this.LoadMatrixes(graphicsDevice);
+            this.LoadEffects(graphicsDevice);
+
             this.renderTarget2D = new RenderTarget2D(graphicsDevice, graphicsDevice.Viewport.Width, graphicsDevice.Viewport.Height);
         }
 
@@ -143,6 +155,27 @@ namespace XonixGame.Entities
                         throw new ArgumentOutOfRangeException();
                     }
             }
+        }
+
+        private void LoadEffects(GraphicsDevice graphicsDevice)
+        {
+            this.BasicEffect = new BasicEffect(graphicsDevice)
+            {
+                World = this.WorldMatrix,
+                View = this.ViewMatrix,
+                Projection = this.ProjectionMatrix,
+                VertexColorEnabled = true,
+            };
+        }
+
+        private void LoadMatrixes(GraphicsDevice graphicsDevice)
+        {
+            this.WorldMatrix = Matrix.CreateWorld(new Vector3(0f, 0f, 0f), new Vector3(0, 0, -1), Vector3.Up);
+            this.ViewMatrix = Matrix.CreateLookAt(new Vector3(0, 0, 3), Vector3.Zero, Vector3.Up);
+            this.ProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4,
+                                                                        graphicsDevice.DisplayMode.AspectRatio,
+                                                                        1.0f,
+                                                                        100.0f);
         }
 
         private VertexPositionColor[] MapTrianglesDotsToVertex()

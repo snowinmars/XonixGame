@@ -29,20 +29,28 @@ namespace XonixGame.Entities
         }
 
         public MovementType MovementType { get; set; }
-
         public PositionVector Position { get; private set; }
-
         private PositionVector ActualSpeed { get; set; }
-
+        private BasicEffect BasicEffect { get; set; }
         private PlayerFlyweight PlayerFlyweight { get; }
+        private Matrix ProjectionMatrix { get; set; }
+        private Matrix ViewMatrix { get; set; }
+        private Matrix WorldMatrix { get; set; }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(TextureStorage.Get(TextureType.Player), this.Position.ToVector2(), Color.Red);
+            foreach (var pass in this.BasicEffect.CurrentTechnique.Passes)
+            {
+                pass.Apply();
+
+                spriteBatch.Draw(TextureStorage.Get(TextureType.Player), this.Position.ToVector2(), Color.Red);
+            }
         }
 
-        public void LoadContent()
+        public void LoadContent(GraphicsDevice graphicsDevice)
         {
+            this.LoadMatrixes(graphicsDevice);
+            this.LoadEffects(graphicsDevice);
         }
 
         public override void Update()
@@ -52,6 +60,27 @@ namespace XonixGame.Entities
             this.Move();
 
             base.Update();
+        }
+
+        private void LoadEffects(GraphicsDevice graphicsDevice)
+        {
+            this.BasicEffect = new BasicEffect(graphicsDevice)
+            {
+                World = this.WorldMatrix,
+                View = this.ViewMatrix,
+                Projection = this.ProjectionMatrix,
+                VertexColorEnabled = true,
+            };
+        }
+
+        private void LoadMatrixes(GraphicsDevice graphicsDevice)
+        {
+            this.WorldMatrix = Matrix.CreateWorld(new Vector3(0f, 0f, 0f), new Vector3(0, 0, -1), Vector3.Up);
+            this.ViewMatrix = Matrix.CreateLookAt(new Vector3(0, 0, 3), Vector3.Zero, Vector3.Up);
+            this.ProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4,
+                                                                        graphicsDevice.DisplayMode.AspectRatio,
+                                                                        1.0f,
+                                                                        100.0f);
         }
 
         private void Move()

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using XonixGame.Configuration;
 using XonixGame.ContentMemoryStorageNamespace;
 using XonixGame.Entities;
 
@@ -47,7 +48,7 @@ namespace XonixGame.Monogame
                 CullMode = CullMode.None
             };
 
-            Player player = new Player(0, 0);
+            Player player = new Player(Config.LeftUpperCorner.X, Config.LeftUpperCorner.Y);
             this.world = new GameWorld(player);
             this.world.Initialize();
 
