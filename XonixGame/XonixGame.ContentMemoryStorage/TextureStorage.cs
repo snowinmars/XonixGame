@@ -30,20 +30,20 @@ namespace XonixGame.ContentMemoryStorageNamespace
                                             1,
                                             Color.Black)
                 },
-                {
-                    TextureType.Player,
-                    graphicsDevice.Generate(Config.PlayerSize.X,
-                                            Config.PlayerSize.Y,
-                                            CommonValues.Random.NextColor())
-                },
-                {
-                    TextureType.World,
-                    graphicsDevice.Generate(Config.WorldSize.X * 100,
-                                            Config.WorldSize.Y * 100,
-                                            new Color(20,20,20),
-                                            borderThick: 2,
-                                            borderColor: Color.Blue)
-                },
+                //{
+                //    TextureType.Player,
+                //    graphicsDevice.Generate(Config.PlayerSize.X,
+                //                            Config.PlayerSize.Y,
+                //                            CommonValues.Random.NextColor())
+                //},
+                //{
+                //    TextureType.World,
+                //    graphicsDevice.Generate(Config.WorldSize.X * 100,
+                //                            Config.WorldSize.Y * 100,
+                //                            new Color(20,20,20),
+                //                            borderThick: 2,
+                //                            borderColor: Color.Blue)
+                //},
             };
         }
     }
