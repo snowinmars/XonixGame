@@ -35,10 +35,10 @@ namespace XonixGame.Entities
         {
             IList<PolygonPoint> bodyPoints = new List<PolygonPoint>
             {
-                new PolygonPoint(-Config.LeftUpperCorner.X, -Config.LeftUpperCorner.Y),
-                new PolygonPoint(-(Config.LeftUpperCorner.X + Config.PlayerSize.X), -Config.LeftUpperCorner.Y),
-                new PolygonPoint(-(Config.LeftUpperCorner.X + Config.PlayerSize.X), -(Config.LeftUpperCorner.Y + Config.PlayerSize.Y)),
-                new PolygonPoint(-Config.LeftUpperCorner.X, -(Config.LeftUpperCorner.Y + Config.PlayerSize.Y)),
+                new PolygonPoint(-this.Position.X, -this.Position.Y),
+                new PolygonPoint(-(this.Position.X + Config.PlayerSize.X), -this.Position.Y),
+                new PolygonPoint(-(this.Position.X + Config.PlayerSize.X), -(this.Position.Y + Config.PlayerSize.Y)),
+                new PolygonPoint(-this.Position.X, -(this.Position.Y + Config.PlayerSize.Y)),
             };
 
             Polygon body = new Polygon(bodyPoints);

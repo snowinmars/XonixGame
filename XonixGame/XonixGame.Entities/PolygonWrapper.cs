@@ -5,6 +5,8 @@ using SandS.Algorithm.Library.PositionNamespace;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using SandS.Algorithm.CommonNamespace;
+using SoonRemoveStuff;
 
 namespace XonixGame.Entities
 {
@@ -191,7 +193,7 @@ namespace XonixGame.Entities
                         pointCount++)
                 {
                     TriangulationPoint point = this.polygon.Triangles[trianglesCount].Points[pointCount];
-                    vertexes[trianglesCount * 3 + pointCount] = new VertexPositionColor(new Vector3(-(float)(point.X), -(float)(point.Y), 0), Color.White);
+                    vertexes[trianglesCount * 3 + pointCount] = new VertexPositionColor(new Vector3(-(float)(point.X), -(float)(point.Y), 0), CommonValues.Random.NextColor());
                 }
             }
 
