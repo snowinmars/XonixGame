@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C3FAC03D-E639-42F2-ABA0-DBBB263AC662}</ProjectGuid>
+    <ProjectGuid>{2077D3AE-9998-42E0-9AE3-F87C3038089A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>XonixGame.Entities</RootNamespace>
-    <AssemblyName>XonixGame.Entities</AssemblyName>
+    <RootNamespace>XonixGame.ContentStorage</RootNamespace>
+    <AssemblyName>XonixGame.ContentStorage</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -46,21 +46,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Player.cs" />
+    <Compile Include="MovableObject.cs" />
+    <Compile Include="Storage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\XonixGame.Constants\XonixGame.Constants.csproj">
       <Project>{9127EA8C-1967-4C67-B84C-28EDD145B347}</Project>
       <Name>XonixGame.Constants</Name>
     </ProjectReference>
-    <ProjectReference Include="..\XonixGame.ContentStorage\XonixGame.ContentStorage.csproj">
-      <Project>{2077D3AE-9998-42E0-9AE3-F87C3038089A}</Project>
-      <Name>XonixGame.ContentStorage</Name>
-    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
